@@ -5,18 +5,24 @@
 
 #define SDL_MAIN_HANDLED
 
-int main()
+void build_window()
 {
-  WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
+  WindowMgr *window_manager = &WindowMgr::get_instace();
 
-  Window w;
-  WindowMgr::get_instace().add_component(&w);
+  Window w(5, 5, 400, 300, "Window 1");
+  window_manager->add_component(&w);
 
-  Button b;
+  Button b(60, 60, 100, 25, "OK");
+  b.on_click([]() { std::cout << "Button press" << std::endl; });
   w.add_component(&b);
 
+  WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
   WindowMgr::get_instace().loop();
+}
 
+int main()
+{
+  build_window();
   std::cout << "(ChicagoSDL exit)" << std::endl;
   return 0;
 }

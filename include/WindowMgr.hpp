@@ -18,6 +18,10 @@ class WindowMgr : public Singleton<WindowMgr>
   friend class Singleton<WindowMgr>;
 
 public:
+  bool m_mouse1_pressed{false};
+  int m_mouse_x{0};
+  int m_mouse_y{0};
+
 public:
   ~WindowMgr();
 

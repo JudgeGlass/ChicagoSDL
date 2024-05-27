@@ -11,7 +11,7 @@ class Window : public Component
 {
 public:
 public:
-  Window();
+  Window(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height, const std::string &title);
 
   void render() override;
   void update() override;
@@ -20,6 +20,10 @@ public:
 
 private:
 private:
+  uint32_t m_width;
+  uint32_t m_height;
+  std::string m_title;
+
   std::vector<WindowComponent *> m_ui_components;
 };
 

@@ -38,6 +38,8 @@ void WindowMgr::sdl_init()
     log("Failed to create renderer!: " + std::string(SDL_GetError()), true);
   }
 
+  SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
+
   m_loop = true;
 }
 
@@ -53,6 +55,7 @@ void WindowMgr::loop()
 
 void WindowMgr::sdl_event()
 {
+  m_mouse1_pressed = false;
   SDL_Event e;
   while (SDL_PollEvent(&e))
   {
@@ -65,11 +68,20 @@ void WindowMgr::sdl_event()
     {
       m_loop = false;
     }
+
+    if (e.type == SDL_MOUSEBUTTONDOWN)
+    {
+      if (e.button.button == SDL_BUTTON_LEFT)
+      {
+        m_mouse1_pressed = true;
+      }
+    }
   }
 }
 
 void WindowMgr::update()
 {
+  SDL_GetMouseState(&m_mouse_x, &m_mouse_y);
   for (const auto &comp : m_components)
   {
     comp->update();
