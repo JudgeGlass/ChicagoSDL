@@ -16,6 +16,7 @@ add_executable(ChicagoSDL
     src/WindowMgr.cpp
     src/Renderer.cpp
     src/Window.cpp
+    src/Texture.cpp
 
     src/Components/Button.cpp
 )

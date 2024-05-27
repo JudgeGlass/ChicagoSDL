@@ -59,17 +59,11 @@ void WindowMgr::sdl_event()
   SDL_Event e;
   while (SDL_PollEvent(&e))
   {
-    if (e.type == SDL_QUIT)
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
     {
       m_loop = false;
     }
-
-    if (e.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_loop = false;
-    }
-
-    if (e.type == SDL_MOUSEBUTTONDOWN)
+    else if (e.type == SDL_MOUSEBUTTONDOWN)
     {
       if (e.button.button == SDL_BUTTON_LEFT)
       {
@@ -90,7 +84,7 @@ void WindowMgr::update()
 
 void WindowMgr::render()
 {
-  SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0);
+  SDL_SetRenderDrawColor(m_sdl_renderer, 0x00, 0x80, 0x80, 0);
   SDL_RenderClear(m_sdl_renderer);
   for (const auto &comp : m_components)
   {
