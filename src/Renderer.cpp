@@ -3,10 +3,10 @@
 Renderer::Renderer(const SDL_Window *window, const SDL_Renderer *renderer)
     : m_sdl_window(window), m_sdl_renderer(renderer)
 {
-  m_ui_textures = std::make_unique<Texture>("/home/judgeglass/Documents/ChicagoSDL/res/uiAtlas.png", 16, 16);
+  m_ui_textures = std::make_unique<Texture>("../res/uiAtlas.png", 16, 16);
   m_ui_textures->load((SDL_Renderer *)m_sdl_renderer);
 
-  m_ui_font_textures = std::make_unique<Texture>("/home/judgeglass/Documents/ChicagoSDL/res/fontAtlas.png", 8, 8);
+  m_ui_font_textures = std::make_unique<Texture>("../res/fontAtlas.png", 8, 8);
   m_ui_font_textures->load((SDL_Renderer *)m_sdl_renderer);
 }
 
@@ -38,14 +38,19 @@ void Renderer::draw_string(int x, int y, std::string text, int color, int scale)
 
   SDL_SetTextureColorMod(m_ui_font_textures->texture, r, g, b);
 
-  std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+  // std::transform(text.begin(), text.end(), text.begin(), ::toupper);
   for (int i = 0; i < text.length(); i++)
   {
     int index = font_chars.find((char)text[i]);
     if (index >= 0)
     {
+      int y_offset = 0;
+      if (text[i] == 'p' || text[i] == 'g' || text[i] == 'y' || text[i] == 'q')
+      {
+        y_offset = 1;
+      }
       m_ui_font_textures->render(
-          (SDL_Renderer *)m_sdl_renderer, index, x + i * (m_ui_font_textures->pw * scale), y, scale, 32);
+          (SDL_Renderer *)m_sdl_renderer, index, x + i * (m_ui_font_textures->pw * scale), y + y_offset, scale, 32);
     }
   }
 }

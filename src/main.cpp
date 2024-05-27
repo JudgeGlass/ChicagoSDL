@@ -1,5 +1,6 @@
 #include "Components/Button.hpp"
 #include "Components/CheckBox.hpp"
+#include "Components/Label.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
 #include <SDL2/SDL.h>
@@ -35,6 +36,9 @@ void build_window()
   });
   // clang-format on
   w.add_component(&c);
+
+  Label l(20, 100, "abcdefghijklmnopqrstuvwxyz", 0xFFFFFF);
+  w.add_component(&l);
 
   WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
   WindowMgr::get_instace().loop();

@@ -21,7 +21,8 @@ public:
   void draw_string_shadowed(int x, int y, std::string text, int color, int scale);
 
 private:
-  std::string font_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      0123456789.,!?'\"-+=/\\%()<>:;_     ";
+  std::string font_chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ|*^   0123456789.,!?'\"-+=/\\%()<>:;_   abcdefghijklmnopqrstuvwxyz█     ";
 
   const SDL_Window *m_sdl_window;
   const SDL_Renderer *m_sdl_renderer;
