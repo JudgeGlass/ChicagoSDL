@@ -39,6 +39,8 @@ void WindowMgr::sdl_init()
   }
 
   SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
+  SDL_StartTextInput();
+  SDL_SetWindowFullscreen(m_sdl_window, SDL_WINDOW_FULLSCREEN);
 
   m_loop = true;
 }
@@ -50,12 +52,18 @@ void WindowMgr::loop()
     sdl_event();
     update();
     render();
+
+    m_mouse1_pressed = false;
+    m_char_removed = false;
+    m_right_arrow = false;
+    m_left_arrow = false;
+    m_up_arrow = false;
+    m_down_arrow = false;
   }
 }
 
 void WindowMgr::sdl_event()
 {
-  m_mouse1_pressed = false;
   SDL_Event e;
   while (SDL_PollEvent(&e))
   {
@@ -69,6 +77,30 @@ void WindowMgr::sdl_event()
       {
         m_mouse1_pressed = true;
       }
+    }
+    else if (e.type == SDL_TEXTINPUT)
+    {
+      m_text_input = std::string(e.text.text);
+    }
+    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_BACKSPACE)
+    {
+      m_char_removed = true;
+    }
+    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_UP)
+    {
+      m_up_arrow = true;
+    }
+    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_DOWN)
+    {
+      m_down_arrow = true;
+    }
+    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_LEFT)
+    {
+      m_left_arrow = true;
+    }
+    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RIGHT)
+    {
+      m_right_arrow = true;
     }
   }
 }
@@ -153,4 +185,16 @@ char WindowMgr::pop_key_buffer()
   char key = m_key_buffer.back();
   m_key_buffer.pop_back();
   return key;
+}
+
+std::string WindowMgr::get_text_input()
+{
+  std::string text = m_text_input;
+  m_text_input.clear();
+  return text;
+}
+
+bool WindowMgr::backspace_pressed()
+{
+  return m_char_removed;
 }

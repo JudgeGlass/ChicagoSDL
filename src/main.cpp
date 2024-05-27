@@ -1,5 +1,6 @@
 #include "Components/Button.hpp"
 #include "Components/CheckBox.hpp"
+#include "Components/InputBuffer.hpp"
 #include "Components/Label.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
@@ -42,14 +43,17 @@ void build_window()
   Label l(20, 100, "abcdefghijklmnopqrstuvwxyz", 0xFFFFFF);
   w.add_component(&l);
 
+  InputBuffer buff(260, 60, 25, 1);
+  w.add_component(&buff);
+
   Window w1(150, 50, 250, 150, "Dialog");
-  w1.on_close(
-      [&]()
-      {
-        std::cout << "BYE!" << std::endl;
-        window_manager->remove_component(&w1);
-      });
+  w1.on_close([&]() { window_manager->remove_component(&w1); });
   window_manager->add_component(&w1);
+  Label dialog(8, 70, "This is a dialog example!", 0);
+  w1.add_component(&dialog);
+  Button ok(250 - 5 - 70, 150 - 30, 70, 25, "OK");
+  ok.on_click([&]() { w1.close(); });
+  w1.add_component(&ok);
 
   WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
   WindowMgr::get_instace().loop();

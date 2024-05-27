@@ -13,4 +13,12 @@ void Label::render()
   renderer->draw_string(m_x, m_y, m_label, m_color, 1);
 }
 
-void Label::update() {}
+void Label::update()
+{
+  // m_label += WindowMgr::get_instace().get_text_input();
+  // if (WindowMgr::get_instace().backspace_pressed())
+  // {
+  //   if (!m_label.empty())
+  //     m_label.pop_back();
+  // }
+}

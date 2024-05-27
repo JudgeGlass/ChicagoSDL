@@ -9,12 +9,16 @@ Window::Window(
 
   m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "");
   m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
+  m_minimize_btn->disable();
 
   WindowMgr::get_instace().set_focus(this);
 }
 
 void Window::add_component(WindowComponent *component)
 {
+  int x = component->get_x();
+  int y = component->get_y();
+  component->set_position(x + m_x, y + m_y);
   m_ui_components.push_back(component);
 }
 
@@ -39,15 +43,15 @@ void Window::render()
   m_minimize_btn->render();
   renderer->render_texture(2, m_minimize_btn->get_x(), m_minimize_btn->get_y(), 1, 16);
 
+  for (const auto &comp : m_ui_components)
+  {
+    comp->render();
+  }
+
   if (m_window_grabbed)
   {
     renderer->render_color(0, 0, 0);
     renderer->render_rect(m_window_prev_x, m_window_prev_y, m_width, m_height, false);
-  }
-
-  for (const auto &comp : m_ui_components)
-  {
-    comp->render();
   }
 }
 

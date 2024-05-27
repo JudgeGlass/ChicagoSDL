@@ -20,6 +20,10 @@ class WindowMgr : public Singleton<WindowMgr>
 
 public:
   bool m_mouse1_pressed{false};
+  bool m_left_arrow{false};
+  bool m_right_arrow{false};
+  bool m_up_arrow{false};
+  bool m_down_arrow{false};
   int m_mouse_x{0};
   int m_mouse_y{0};
 
@@ -36,17 +40,22 @@ public:
   void toggle_border();
 
   char pop_key_buffer();
+  bool backspace_pressed();
 
   Renderer *get_renderer();
+
+  std::string get_text_input();
 
 private:
   uint16_t m_window_width{800};
   uint16_t m_window_height{480};
 
   std::string m_window_title;
+  std::string m_text_input;
 
   bool m_loop{false};
   bool m_show_border{false};
+  bool m_char_removed{false};
 
   SDL_Window *m_sdl_window;
   SDL_Renderer *m_sdl_renderer;

@@ -22,4 +22,5 @@ add_executable(ChicagoSDL
     src/Components/Button.cpp
     src/Components/CheckBox.cpp
     src/Components/Label.cpp
+    src/Components/InputBuffer.cpp
 )
