@@ -1,8 +1,12 @@
+#include "WindowMgr.hpp"
 #include <iostream>
 
-int main(){
+#define SDL_MAIN_HANDLED
 
-    std::cout << "Hello World!" << std::endl;
-
-    return 0;
+int main()
+{
+  WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
+  WindowMgr::get_instace().loop();
+  std::cout << "(ChicagoSDL exit)" << std::endl;
+  return 0;
 }

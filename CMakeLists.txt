@@ -10,7 +10,8 @@ include_directories("include")
 # add_link_options(-fsanitize=address)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O0 -ggdb")
-
+LINK_LIBRARIES(SDL2main SDL2 SDL2_image SDL2_mixer)
 add_executable(ChicagoSDL
     src/main.cpp
+    src/WindowMgr.cpp
 )
