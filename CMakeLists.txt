@@ -14,4 +14,8 @@ LINK_LIBRARIES(SDL2main SDL2 SDL2_image SDL2_mixer)
 add_executable(ChicagoSDL
     src/main.cpp
     src/WindowMgr.cpp
+    src/Renderer.cpp
+    src/Window.cpp
+
+    src/Components/Button.cpp
 )
