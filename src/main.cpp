@@ -15,6 +15,8 @@ void build_window()
   Window w(0, 0, 800, 480, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
   window_manager->add_component(&w);
 
+  w.on_close([&]() { window_manager->close(); });
+
   CheckBox ch(30, 30, false, "Enable Buffer");
   ch.on_click([&]() { window_manager->toggle_border(); });
   w.add_component(&ch);
@@ -39,6 +41,15 @@ void build_window()
 
   Label l(20, 100, "abcdefghijklmnopqrstuvwxyz", 0xFFFFFF);
   w.add_component(&l);
+
+  Window w1(150, 50, 250, 150, "Dialog");
+  w1.on_close(
+      [&]()
+      {
+        std::cout << "BYE!" << std::endl;
+        window_manager->remove_component(&w1);
+      });
+  window_manager->add_component(&w1);
 
   WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
   WindowMgr::get_instace().loop();

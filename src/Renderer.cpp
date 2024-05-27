@@ -12,7 +12,15 @@ Renderer::Renderer(const SDL_Window *window, const SDL_Renderer *renderer)
 
 void Renderer::render_color(const uint8_t r, const uint8_t g, const uint8_t b)
 {
-  SDL_SetRenderDrawColor((SDL_Renderer *)m_sdl_renderer, r, g, b, 0);
+  SDL_SetRenderDrawColor((SDL_Renderer *)m_sdl_renderer, r, g, b, 255);
+}
+
+void Renderer::render_backdrop(const int x, const int y, const int w, const int h)
+{
+  SDL_SetRenderDrawBlendMode((SDL_Renderer *)m_sdl_renderer, SDL_BLENDMODE_BLEND);
+  SDL_SetRenderDrawColor((SDL_Renderer *)m_sdl_renderer, 0, 0, 0, 160);
+  SDL_Rect rect = {x, y, w, h};
+  SDL_RenderFillRect((SDL_Renderer *)m_sdl_renderer, &rect);
 }
 
 void Renderer::render_rect(const int x, const int y, const int w, const int h, bool filled)

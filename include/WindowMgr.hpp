@@ -5,6 +5,7 @@
 #include <inttypes.h>
 #include <iostream>
 #include <memory>
+#include <stack>
 #include <string>
 #include <vector>
 
@@ -30,7 +31,11 @@ public:
   void log(const std::string &msg, bool _exit);
   void close();
   void add_component(Component *component);
+  void remove_component(Component *component);
+  void set_focus(Component *component);
   void toggle_border();
+
+  char pop_key_buffer();
 
   Renderer *get_renderer();
 
@@ -49,6 +54,9 @@ private:
   std::unique_ptr<Renderer> m_renderer;
 
   std::vector<Component *> m_components;
+  std::vector<char> m_key_buffer;
+
+  std::stack<Component *> m_current_focus;
 
 private:
   void sdl_init();

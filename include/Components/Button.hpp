@@ -16,6 +16,7 @@ public:
   void render() override;
 
   void on_click(std::function<void()> func);
+  void push_handler();
 
 private:
 private:
@@ -25,6 +26,9 @@ private:
 
   // void (*m_event_func)(){nullptr};
   std::function<void()> m_event_func;
+
+  uint32_t m_push_time{0};
+  bool m_pushed{false};
 };
 
 #endif

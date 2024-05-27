@@ -7,10 +7,10 @@ Window::Window(
   m_x = x;
   m_y = y;
 
-  m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "X");
-  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "_");
+  m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "");
+  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
 
-  m_exit_btn->on_click([]() { WindowMgr::get_instace().close(); });
+  WindowMgr::get_instace().set_focus(this);
 }
 
 void Window::add_component(WindowComponent *component)
@@ -18,9 +18,16 @@ void Window::add_component(WindowComponent *component)
   m_ui_components.push_back(component);
 }
 
+void Window::on_close(std::function<void()> event)
+{
+  m_on_close = event;
+  m_exit_btn->on_click(m_on_close);
+}
+
 void Window::render()
 {
   Renderer *renderer = WindowMgr::get_instace().get_renderer();
+  renderer->render_backdrop(0, 0, 800, 480);
 
   Compositor::get_instace().draw_window_frame(m_x, m_y, m_width, m_height);
 
@@ -32,6 +39,12 @@ void Window::render()
   m_minimize_btn->render();
   renderer->render_texture(2, m_minimize_btn->get_x(), m_minimize_btn->get_y(), 1, 16);
 
+  if (m_window_grabbed)
+  {
+    renderer->render_color(0, 0, 0);
+    renderer->render_rect(m_window_prev_x, m_window_prev_y, m_width, m_height, false);
+  }
+
   for (const auto &comp : m_ui_components)
   {
     comp->render();
@@ -40,11 +53,58 @@ void Window::render()
 
 void Window::update()
 {
+  move();
+
   m_exit_btn->update();
   m_minimize_btn->update();
 
   for (const auto &comp : m_ui_components)
   {
     comp->update();
+  }
+}
+
+void Window::move()
+{
+  int mouse_x = WindowMgr::get_instace().m_mouse_x;
+  int mouse_y = WindowMgr::get_instace().m_mouse_y;
+  bool mouse_clicked = WindowMgr::get_instace().m_mouse1_pressed;
+  if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
+  {
+    m_window_grabbed = true;
+  }
+  else if (mouse_clicked && m_window_grabbed)
+  {
+    m_window_grabbed = false;
+    int old_mx = m_x;
+    int old_my = m_y;
+    m_x = m_window_prev_x;
+    m_y = m_window_prev_y;
+    int dx = m_x - old_mx;
+    int dy = m_y - old_my;
+
+    m_exit_btn->set_position(m_exit_btn->get_x() + dx, m_exit_btn->get_y() + dy);
+    m_minimize_btn->set_position(m_minimize_btn->get_x() + dx, m_minimize_btn->get_y() + dy);
+
+    for (const auto &comp : m_ui_components)
+    {
+      int x = comp->get_x();
+      int y = comp->get_y();
+
+      comp->set_position(x + dx, y + dy);
+    }
+  }
+  else if (m_window_grabbed)
+  {
+    m_window_prev_x = mouse_x - (m_width / 2);
+    m_window_prev_y = mouse_y;
+  }
+}
+
+void Window::close()
+{
+  if (m_on_close)
+  {
+    m_on_close();
   }
 }

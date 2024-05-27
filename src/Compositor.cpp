@@ -21,13 +21,30 @@ void Compositor::draw_button_normal(
   Renderer *renderer = WindowMgr::get_instace().get_renderer();
 
   renderer->render_color(0, 0, 0);
+  renderer->render_rect(x, y, width, height, false);
+  renderer->render_color(0xFF, 0xFF, 0xFF);
+  renderer->render_rect(x, y, width - 1, height - 1, false);
+  renderer->render_color(0x80, 0x80, 0x80);
+  renderer->render_rect(x + 1, y + 1, width - 2, height - 2, false);
+  renderer->render_color(0xC0, 0xC0, 0xC0);
+  renderer->render_rect(x + 1, y + 1, width - 2, height - 2, true);
+
+  renderer->draw_string(x + (width / 2) - 8 * (text.size() / 2), y + 8, text, 0, 1);
+}
+
+void Compositor::draw_button_pushed(
+    const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::string &text)
+{
+  Renderer *renderer = WindowMgr::get_instace().get_renderer();
+
+  renderer->render_color(0, 0, 0);
   renderer->render_rect(x, y, width, height, true);
   renderer->render_color(0xFF, 0xFF, 0xFF);
-  renderer->render_rect(x, y, width - 2, height - 2, true);
+  renderer->render_rect(x + 1, y + 1, width - 1, height - 1, true);
   renderer->render_color(0x80, 0x80, 0x80);
-  renderer->render_rect(x + 1, y + 1, width - 3, height - 3, true);
+  renderer->render_rect(x + 1, y + 1, width - 2, height - 2, true);
   renderer->render_color(0xC0, 0xC0, 0xC0);
-  renderer->render_rect(x + 1, y + 1, width - 3, height - 3, true);
+  renderer->render_rect(x + 2, y + 2, width - 3, height - 3, true);
 
   renderer->draw_string(x + (width / 2) - 8 * (text.size() / 2), y + 8, text, 0, 1);
 }

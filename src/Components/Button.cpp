@@ -9,16 +9,44 @@ Button::Button(const uint32_t x, const uint32_t y, const uint32_t width, const u
 
 void Button::render()
 {
-  Compositor::get_instace().draw_button_normal(m_x, m_y, m_width, m_height, m_text);
+  if (m_enabled && !m_pushed)
+  {
+    Compositor::get_instace().draw_button_normal(m_x, m_y, m_width, m_height, m_text);
+  }
+  else
+  {
+    Compositor::get_instace().draw_button_pushed(m_x, m_y, m_width, m_height, m_text);
+  }
+}
+
+void Button::push_handler()
+{
+  if (m_push_time > 0)
+  {
+    m_push_time--;
+  }
+  else
+  {
+    m_pushed = false;
+  }
 }
 
 void Button::update()
 {
+  push_handler();
   if (WindowMgr::get_instace().m_mouse1_pressed)
   {
-    if (m_event_func && Component::is_in_bounds(WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y,
-                            m_x, m_y, m_width, m_height))
-      m_event_func();
+    if (Component::is_in_bounds(
+            WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y, m_x, m_y, m_width, m_height))
+    {
+      m_pushed = true;
+      m_push_time = 5;
+
+      if (m_event_func)
+      {
+        m_event_func();
+      }
+    }
   }
 }
 

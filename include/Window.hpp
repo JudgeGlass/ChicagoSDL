@@ -5,6 +5,7 @@
 #include "Compositor.hpp"
 #include "WindowMgr.hpp"
 
+#include <functional>
 #include <memory>
 #include <vector>
 
@@ -19,8 +20,9 @@ public:
   void update() override;
 
   void add_component(WindowComponent *component);
+  void on_close(std::function<void()> event);
+  void close();
 
-private:
 private:
   uint32_t m_width;
   uint32_t m_height;
@@ -30,6 +32,15 @@ private:
   std::unique_ptr<Button> m_minimize_btn;
 
   std::vector<WindowComponent *> m_ui_components;
+
+  std::function<void()> m_on_close;
+
+  bool m_window_grabbed{false};
+  int m_window_prev_x{0};
+  int m_window_prev_y{0};
+
+private:
+  void move();
 };
 
 #endif

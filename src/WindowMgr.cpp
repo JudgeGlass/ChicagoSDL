@@ -78,7 +78,10 @@ void WindowMgr::update()
   SDL_GetMouseState(&m_mouse_x, &m_mouse_y);
   for (const auto &comp : m_components)
   {
-    comp->update();
+    if (comp == m_current_focus.top())
+    {
+      comp->update();
+    }
   }
 }
 
@@ -101,6 +104,15 @@ Renderer *WindowMgr::get_renderer()
 void WindowMgr::add_component(Component *component)
 {
   m_components.push_back(component);
+}
+
+void WindowMgr::remove_component(Component *component)
+{
+  if (m_current_focus.top() == component)
+  {
+    m_current_focus.pop();
+  }
+  m_components.erase(std::remove(m_components.begin(), m_components.end(), component), m_components.end());
 }
 
 void WindowMgr::log(const std::string &msg, bool _exit)
@@ -129,4 +141,16 @@ void WindowMgr::toggle_border()
   }
 
   m_show_border = !m_show_border;
+}
+
+void WindowMgr::set_focus(Component *component)
+{
+  m_current_focus.push(component);
+}
+
+char WindowMgr::pop_key_buffer()
+{
+  char key = m_key_buffer.back();
+  m_key_buffer.pop_back();
+  return key;
 }
