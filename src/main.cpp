@@ -2,6 +2,7 @@
 #include "Components/CheckBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
+#include <SDL2/SDL.h>
 #include <iostream>
 
 #define SDL_MAIN_HANDLED
@@ -14,6 +15,7 @@ void build_window()
   window_manager->add_component(&w);
 
   CheckBox ch(30, 30, false, "Enable Buffer");
+  ch.on_click([&]() { window_manager->toggle_border(); });
   w.add_component(&ch);
 
   Button b(60, 60, 50, 25, "EXIT");

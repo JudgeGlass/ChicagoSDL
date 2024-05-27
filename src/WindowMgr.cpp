@@ -116,3 +116,17 @@ void WindowMgr::close()
 {
   m_loop = false;
 }
+
+void WindowMgr::toggle_border()
+{
+  if (m_show_border)
+  {
+    SDL_SetWindowBordered(m_sdl_window, SDL_TRUE);
+  }
+  else
+  {
+    SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
+  }
+
+  m_show_border = !m_show_border;
+}

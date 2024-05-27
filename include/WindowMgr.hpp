@@ -30,6 +30,7 @@ public:
   void log(const std::string &msg, bool _exit);
   void close();
   void add_component(Component *component);
+  void toggle_border();
 
   Renderer *get_renderer();
 
@@ -40,6 +41,7 @@ private:
   std::string m_window_title;
 
   bool m_loop{false};
+  bool m_show_border{false};
 
   SDL_Window *m_sdl_window;
   SDL_Renderer *m_sdl_renderer;
