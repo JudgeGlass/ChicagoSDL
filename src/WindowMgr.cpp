@@ -117,3 +117,8 @@ void WindowMgr::log(const std::string &msg, bool _exit)
     exit(-1);
   }
 }
+
+void WindowMgr::close()
+{
+  m_loop = false;
+}

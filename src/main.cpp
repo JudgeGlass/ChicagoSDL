@@ -9,11 +9,16 @@ void build_window()
 {
   WindowMgr *window_manager = &WindowMgr::get_instace();
 
-  Window w(5, 5, 400, 300, "Window 1");
+  Window w(5, 5, 600, 400, "Window 1");
   window_manager->add_component(&w);
 
   Button b(60, 60, 100, 25, "OK");
-  b.on_click([]() { std::cout << "Button press" << std::endl; });
+  // clang-format off
+  b.on_click([&]() 
+  {
+    window_manager->close();
+  });
+  // clang-format on
   w.add_component(&b);
 
   WindowMgr::get_instace().init(800, 480, "ChicagoSDL");

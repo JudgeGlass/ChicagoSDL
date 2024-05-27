@@ -1,8 +1,9 @@
-#ifndef BuTTON_HPP
+#ifndef BUTTON_HPP
 #define BUTTON_HPP
 
 #include "../Renderer.hpp"
 #include "WindowComponent.hpp"
+#include <functional>
 
 class Button : public WindowComponent
 {
@@ -15,7 +16,7 @@ public:
 
   void set_position(const uint32_t x, const uint32_t y) override;
 
-  void on_click(void (*event)());
+  void on_click(std::function<void()> func);
 
   bool is_in_bounds(int x, int y);
 
@@ -25,7 +26,8 @@ private:
   uint32_t m_height;
   std::string m_text;
 
-  void (*m_event_func)(){nullptr};
+  // void (*m_event_func)(){nullptr};
+  std::function<void()> m_event_func;
 };
 
 #endif

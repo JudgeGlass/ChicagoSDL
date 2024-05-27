@@ -19,7 +19,7 @@ void Button::update()
 {
   if (WindowMgr::get_instace().m_mouse1_pressed)
   {
-    if (m_event_func != nullptr && is_in_bounds(WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y))
+    if (m_event_func && is_in_bounds(WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y))
       m_event_func();
   }
 }
@@ -30,7 +30,7 @@ void Button::set_position(const uint32_t x, const uint32_t y)
   m_y = y;
 }
 
-void Button::on_click(void (*event)())
+void Button::on_click(std::function<void()> event)
 {
   m_event_func = event;
 }

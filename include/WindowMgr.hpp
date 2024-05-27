@@ -28,6 +28,7 @@ public:
   void init(const uint16_t window_width, const uint16_t window_height, const std::string &window_title);
   void loop();
   void log(const std::string &msg, bool _exit);
+  void close();
   void add_component(Component *component);
 
   Renderer *get_renderer();
