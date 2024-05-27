@@ -1,4 +1,5 @@
 #include "Components/Button.hpp"
+#include "Components/CheckBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
 #include <iostream>
@@ -11,6 +12,9 @@ void build_window()
 
   Window w(0, 0, 800, 480, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
   window_manager->add_component(&w);
+
+  CheckBox ch(30, 30, false, "Enable Buffer");
+  w.add_component(&ch);
 
   Button b(60, 60, 50, 25, "EXIT");
   // clang-format off
@@ -25,7 +29,7 @@ void build_window()
   // clang-format off
   c.on_click([&]() 
   {
-    std::cout << "Pressed OK" << std::endl;
+    std::cout << "Is check box enable?: " << ch.is_enabled() << std::endl;
   });
   // clang-format on
   w.add_component(&c);
