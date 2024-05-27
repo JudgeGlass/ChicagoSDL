@@ -23,12 +23,17 @@ InputBuffer::~InputBuffer()
 
 void InputBuffer::update()
 {
-  std::string key = WindowMgr::get_instace().get_text_input();
-  bool backspace = WindowMgr::get_instace().backspace_pressed();
-  bool up = WindowMgr::get_instace().m_up_arrow;
-  bool down = WindowMgr::get_instace().m_down_arrow;
-  bool left = WindowMgr::get_instace().m_left_arrow;
-  bool right = WindowMgr::get_instace().m_right_arrow;
+  check_focus();
+  if (!m_is_primary)
+  {
+    return;
+  }
+  std::string key = WindowMgr::get_instance().get_text_input();
+  bool backspace = WindowMgr::get_instance().backspace_pressed();
+  bool up = WindowMgr::get_instance().m_up_arrow;
+  bool down = WindowMgr::get_instance().m_down_arrow;
+  bool left = WindowMgr::get_instance().m_left_arrow;
+  bool right = WindowMgr::get_instance().m_right_arrow;
   if (!key.empty())
   {
     buffer[m_current_col + m_current_row * m_cols] = key.at(0);
@@ -83,10 +88,11 @@ void InputBuffer::update()
 
 void InputBuffer::render()
 {
-  Renderer *renderer = WindowMgr::get_instace().get_renderer();
+  Renderer *renderer = WindowMgr::get_instance().get_renderer();
 
-  renderer->render_color(0xFF, 0xFF, 0xFF);
-  renderer->render_rect(m_x, m_y, m_width, m_height, true);
+  // renderer->render_color(0xFF, 0xFF, 0xFF);
+  // renderer->render_rect(m_x, m_y, m_width, m_height, true);
+  Compositor::get_instance().draw_input_buffer(m_x, m_y, m_cols, m_rows, buffer);
 
   for (int c = 0; c < m_cols; c++)
   {
@@ -140,7 +146,7 @@ void InputBuffer::inc_col()
 
 void InputBuffer::inc_row()
 {
-  if (m_current_row + 1 > m_rows + 1)
+  if (m_current_row + 1 > m_rows - 1)
   {
     m_current_row = 0;
   }
@@ -163,4 +169,20 @@ std::string InputBuffer::get_text()
   }
 
   return ss.str();
+}
+
+void InputBuffer::check_focus()
+{
+  int mouse_x = WindowMgr::get_instance().m_mouse_x;
+  int mouse_y = WindowMgr::get_instance().m_mouse_y;
+  if (WindowMgr::get_instance().m_mouse1_pressed &&
+      Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width, m_height))
+  {
+    m_is_primary = true;
+  }
+  if (WindowMgr::get_instance().m_mouse1_pressed &&
+      !Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width, m_height))
+  {
+    m_is_primary = false;
+  }
 }

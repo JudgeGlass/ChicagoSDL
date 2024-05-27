@@ -9,14 +9,14 @@ Label::Label(const uint32_t x, const uint32_t y, const std::string &label, const
 
 void Label::render()
 {
-  Renderer *renderer = WindowMgr::get_instace().get_renderer();
+  Renderer *renderer = WindowMgr::get_instance().get_renderer();
   renderer->draw_string(m_x, m_y, m_label, m_color, 1);
 }
 
 void Label::update()
 {
-  // m_label += WindowMgr::get_instace().get_text_input();
-  // if (WindowMgr::get_instace().backspace_pressed())
+  // m_label += WindowMgr::get_instance().get_text_input();
+  // if (WindowMgr::get_instance().backspace_pressed())
   // {
   //   if (!m_label.empty())
   //     m_label.pop_back();

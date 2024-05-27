@@ -9,15 +9,15 @@ CheckBox::CheckBox(const uint32_t x, const uint32_t y, const bool checked, const
 
 void CheckBox::render()
 {
-  Compositor::get_instace().draw_checkbox(m_x, m_y, m_is_checked, m_label);
+  Compositor::get_instance().draw_checkbox(m_x, m_y, m_is_checked, m_label);
 }
 
 void CheckBox::update()
 {
-  if (WindowMgr::get_instace().m_mouse1_pressed)
+  if (WindowMgr::get_instance().m_mouse1_pressed)
   {
     if (Component::is_in_bounds(
-            WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y, m_x, m_y, m_width, m_height))
+            WindowMgr::get_instance().m_mouse_x, WindowMgr::get_instance().m_mouse_y, m_x, m_y, m_width, m_height))
     {
       m_is_checked = !m_is_checked;
       if (m_event_func)

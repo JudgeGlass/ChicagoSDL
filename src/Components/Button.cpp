@@ -11,11 +11,11 @@ void Button::render()
 {
   if (m_enabled && !m_pushed)
   {
-    Compositor::get_instace().draw_button_normal(m_x, m_y, m_width, m_height, m_text);
+    Compositor::get_instance().draw_button_normal(m_x, m_y, m_width, m_height, m_text);
   }
   else
   {
-    Compositor::get_instace().draw_button_pushed(m_x, m_y, m_width, m_height, m_text);
+    Compositor::get_instance().draw_button_pushed(m_x, m_y, m_width, m_height, m_text);
   }
 }
 
@@ -34,10 +34,10 @@ void Button::push_handler()
 void Button::update()
 {
   push_handler();
-  if (WindowMgr::get_instace().m_mouse1_pressed)
+  if (WindowMgr::get_instance().m_mouse1_pressed)
   {
     if (Component::is_in_bounds(
-            WindowMgr::get_instace().m_mouse_x, WindowMgr::get_instace().m_mouse_y, m_x, m_y, m_width, m_height))
+            WindowMgr::get_instance().m_mouse_x, WindowMgr::get_instance().m_mouse_y, m_x, m_y, m_width, m_height))
     {
       m_pushed = true;
       m_push_time = 5;

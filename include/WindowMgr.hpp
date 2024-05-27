@@ -26,6 +26,8 @@ public:
   bool m_down_arrow{false};
   int m_mouse_x{0};
   int m_mouse_y{0};
+  uint16_t m_window_width{800};
+  uint16_t m_window_height{480};
 
 public:
   ~WindowMgr();
@@ -47,9 +49,6 @@ public:
   std::string get_text_input();
 
 private:
-  uint16_t m_window_width{800};
-  uint16_t m_window_height{480};
-
   std::string m_window_title;
   std::string m_text_input;
 

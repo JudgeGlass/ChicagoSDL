@@ -11,9 +11,9 @@
 
 void build_window()
 {
-  WindowMgr *window_manager = &WindowMgr::get_instace();
+  WindowMgr *window_manager = &WindowMgr::get_instance();
 
-  Window w(0, 0, 800, 480, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
+  Window w(0, 0, 800 * 2, 480 * 2, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
   window_manager->add_component(&w);
 
   w.on_close([&]() { window_manager->close(); });
@@ -55,8 +55,8 @@ void build_window()
   ok.on_click([&]() { w1.close(); });
   w1.add_component(&ok);
 
-  WindowMgr::get_instace().init(800, 480, "ChicagoSDL");
-  WindowMgr::get_instace().loop();
+  WindowMgr::get_instance().init(800 * 2, 480 * 2, "ChicagoSDL");
+  WindowMgr::get_instance().loop();
 }
 
 int main()

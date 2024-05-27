@@ -11,7 +11,7 @@ Window::Window(
   m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
   m_minimize_btn->disable();
 
-  WindowMgr::get_instace().set_focus(this);
+  WindowMgr::get_instance().set_focus(this);
 }
 
 void Window::add_component(WindowComponent *component)
@@ -30,10 +30,10 @@ void Window::on_close(std::function<void()> event)
 
 void Window::render()
 {
-  Renderer *renderer = WindowMgr::get_instace().get_renderer();
-  renderer->render_backdrop(0, 0, 800, 480);
+  Renderer *renderer = WindowMgr::get_instance().get_renderer();
+  renderer->render_backdrop(0, 0, WindowMgr::get_instance().m_window_width, WindowMgr::get_instance().m_window_height);
 
-  Compositor::get_instace().draw_window_frame(m_x, m_y, m_width, m_height);
+  Compositor::get_instance().draw_window_frame(m_x, m_y, m_width, m_height);
 
   renderer->draw_string_shadowed(m_x + 8, m_y + 12, m_title, 0xFFFFFF, 1);
 
@@ -70,9 +70,9 @@ void Window::update()
 
 void Window::move()
 {
-  int mouse_x = WindowMgr::get_instace().m_mouse_x;
-  int mouse_y = WindowMgr::get_instace().m_mouse_y;
-  bool mouse_clicked = WindowMgr::get_instace().m_mouse1_pressed;
+  int mouse_x = WindowMgr::get_instance().m_mouse_x;
+  int mouse_y = WindowMgr::get_instance().m_mouse_y;
+  bool mouse_clicked = WindowMgr::get_instance().m_mouse1_pressed;
   if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
   {
     m_window_grabbed = true;

@@ -33,6 +33,7 @@ private:
   void dec_row();
   void inc_col();
   void inc_row();
+  void check_focus();
 };
 
 #endif
