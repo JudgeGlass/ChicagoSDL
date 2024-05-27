@@ -11,13 +11,6 @@ public:
 
   void update() override;
   void render() override;
-  void set_position(const uint32_t x, const uint32_t y) override;
-  int get_x() override;
-  int get_y() override;
-
-  bool is_enabled() const;
-
-  bool is_in_bounds(int x, int y);
 
 private:
 private:

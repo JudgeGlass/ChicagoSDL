@@ -22,14 +22,7 @@ void Window::render()
 {
   Renderer *renderer = WindowMgr::get_instace().get_renderer();
 
-  renderer->render_color(0xC0, 0xC0, 0xC0);
-  renderer->render_rect(m_x, m_y, m_width, m_height, true);
-
-  renderer->render_color(0xFF, 0xFF, 0xFF);
-  renderer->render_rect(m_x + 1, m_y + 1, m_width - 2, m_height - 2, false);
-
-  renderer->render_color(0, 0x0C, 0x75);
-  renderer->render_rect(m_x + 4, m_y + 4, m_width - 8, 24, true);
+  Compositor::get_instace().draw_window_frame(m_x, m_y, m_width, m_height);
 
   renderer->draw_string_shadowed(m_x + 8, m_y + 12, m_title, 0xFFFFFF, 1);
 

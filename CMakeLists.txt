@@ -17,6 +17,7 @@ add_executable(ChicagoSDL
     src/Renderer.cpp
     src/Window.cpp
     src/Texture.cpp
+    src/Compositor.cpp
 
     src/Components/Button.cpp
     src/Components/CheckBox.cpp

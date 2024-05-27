@@ -1,6 +1,7 @@
 #ifndef CHECKBOX_HPP
 #define CHECKBOX_HPP
 
+#include "../Compositor.hpp"
 #include "WindowComponent.hpp"
 #include <functional>
 
@@ -12,15 +13,10 @@ public:
 
   void update() override;
   void render() override;
-  void set_position(const uint32_t x, const uint32_t y) override;
-  int get_x() override;
-  int get_y() override;
 
   bool is_enabled() const;
 
   void on_click(std::function<void()> func);
-
-  bool is_in_bounds(int x, int y);
 
 private:
 private:

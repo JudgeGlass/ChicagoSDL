@@ -2,6 +2,7 @@
 #define WINDOW_HPP
 
 #include "Components/Button.hpp"
+#include "Compositor.hpp"
 #include "WindowMgr.hpp"
 
 #include <memory>

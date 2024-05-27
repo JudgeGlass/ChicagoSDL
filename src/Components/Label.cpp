@@ -14,19 +14,3 @@ void Label::render()
 }
 
 void Label::update() {}
-
-void Label::set_position(const uint32_t x, const uint32_t y)
-{
-  m_x = x;
-  m_y = y;
-}
-
-int Label::get_x()
-{
-  return m_x;
-}
-
-int Label::get_y()
-{
-  return m_y;
-}
