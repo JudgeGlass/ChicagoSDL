@@ -30,10 +30,10 @@ void InputBuffer::update()
   }
   std::string key = WindowMgr::get_instance().get_text_input();
   bool backspace = WindowMgr::get_instance().backspace_pressed();
-  bool up = WindowMgr::get_instance().m_up_arrow;
-  bool down = WindowMgr::get_instance().m_down_arrow;
-  bool left = WindowMgr::get_instance().m_left_arrow;
-  bool right = WindowMgr::get_instance().m_right_arrow;
+  bool up = WindowMgr::get_instance().is_key_pressed(SDLK_UP);
+  bool down = WindowMgr::get_instance().is_key_pressed(SDLK_DOWN);
+  bool left = WindowMgr::get_instance().is_key_pressed(SDLK_LEFT);
+  bool right = WindowMgr::get_instance().is_key_pressed(SDLK_RIGHT);
   if (!key.empty())
   {
     buffer[m_current_col + m_current_row * m_cols] = key.at(0);

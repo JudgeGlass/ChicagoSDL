@@ -40,7 +40,13 @@ void WindowMgr::sdl_init()
 
   SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
   SDL_StartTextInput();
-  SDL_SetWindowFullscreen(m_sdl_window, SDL_WINDOW_FULLSCREEN);
+  // SDL_SetWindowFullscreen(m_sdl_window, SDL_WINDOW_FULLSCREEN);
+
+  m_key_states.insert({SDLK_UP, false});
+  m_key_states.insert({SDLK_DOWN, false});
+  m_key_states.insert({SDLK_LEFT, false});
+  m_key_states.insert({SDLK_RIGHT, false});
+  m_key_states.insert({SDLK_BACKSPACE, false});
 
   m_loop = true;
 }
@@ -54,11 +60,7 @@ void WindowMgr::loop()
     render();
 
     m_mouse1_pressed = false;
-    m_char_removed = false;
-    m_right_arrow = false;
-    m_left_arrow = false;
-    m_up_arrow = false;
-    m_down_arrow = false;
+    set_all_key_states(false);
   }
 }
 
@@ -84,23 +86,10 @@ void WindowMgr::sdl_event()
     }
     else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_BACKSPACE)
     {
-      m_char_removed = true;
-    }
-    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_UP)
-    {
-      m_up_arrow = true;
-    }
-    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_DOWN)
-    {
-      m_down_arrow = true;
-    }
-    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_LEFT)
-    {
-      m_left_arrow = true;
-    }
-    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RIGHT)
-    {
-      m_right_arrow = true;
+      if (m_key_states.find(e.key.keysym.sym) != m_key_states.end())
+      {
+        m_key_states.at(e.key.keysym.sym) = true;
+      }
     }
   }
 }
@@ -196,5 +185,23 @@ std::string WindowMgr::get_text_input()
 
 bool WindowMgr::backspace_pressed()
 {
-  return m_char_removed;
+  return is_key_pressed(SDLK_BACKSPACE);
+}
+
+bool WindowMgr::is_key_pressed(SDL_Keycode key)
+{
+  if (m_key_states.find(key) != m_key_states.end())
+  {
+    return m_key_states.at(key);
+  }
+
+  return false;
+}
+
+void WindowMgr::set_all_key_states(bool value)
+{
+  for (auto &[_, state] : m_key_states)
+  {
+    state = value;
+  }
 }

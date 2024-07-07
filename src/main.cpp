@@ -1,5 +1,6 @@
 #include "Components/Button.hpp"
 #include "Components/CheckBox.hpp"
+#include "Components/Graphics.hpp"
 #include "Components/InputBuffer.hpp"
 #include "Components/Label.hpp"
 #include "Window.hpp"
@@ -12,6 +13,7 @@
 void build_window()
 {
   WindowMgr *window_manager = &WindowMgr::get_instance();
+  WindowMgr::get_instance().init(800 * 2, 480 * 2, "ChicagoSDL");
 
   Window w(0, 0, 800 * 2, 480 * 2, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
   window_manager->add_component(&w);
@@ -55,7 +57,13 @@ void build_window()
   ok.on_click([&]() { w1.close(); });
   w1.add_component(&ok);
 
-  WindowMgr::get_instance().init(800 * 2, 480 * 2, "ChicagoSDL");
+  Graphics g(20, 200, 200, 200);
+  for (int i = 0; i < 60; i++)
+  {
+    g.set_pixel(0, i, 0xFFFFFF);
+  }
+  w.add_component(&g);
+
   WindowMgr::get_instance().loop();
 }
 

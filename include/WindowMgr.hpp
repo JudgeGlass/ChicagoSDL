@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <inttypes.h>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <stack>
 #include <string>
@@ -20,10 +21,6 @@ class WindowMgr : public Singleton<WindowMgr>
 
 public:
   bool m_mouse1_pressed{false};
-  bool m_left_arrow{false};
-  bool m_right_arrow{false};
-  bool m_up_arrow{false};
-  bool m_down_arrow{false};
   int m_mouse_x{0};
   int m_mouse_y{0};
   uint16_t m_window_width{800};
@@ -40,9 +37,11 @@ public:
   void remove_component(Component *component);
   void set_focus(Component *component);
   void toggle_border();
+  void set_all_key_states(bool value);
 
   char pop_key_buffer();
   bool backspace_pressed();
+  bool is_key_pressed(SDL_Keycode key);
 
   Renderer *get_renderer();
 
@@ -65,6 +64,8 @@ private:
   std::vector<char> m_key_buffer;
 
   std::stack<Component *> m_current_focus;
+
+  std::map<SDL_Keycode, bool> m_key_states;
 
 private:
   void sdl_init();

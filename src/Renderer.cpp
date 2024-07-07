@@ -3,10 +3,10 @@
 Renderer::Renderer(const SDL_Window *window, const SDL_Renderer *renderer)
     : m_sdl_window(window), m_sdl_renderer(renderer)
 {
-  m_ui_textures = std::make_unique<Texture>("../res/uiAtlas.png", 16, 16);
+  m_ui_textures = std::make_unique<Texture>("./res/uiAtlas.png", 16, 16);
   m_ui_textures->load((SDL_Renderer *)m_sdl_renderer);
 
-  m_ui_font_textures = std::make_unique<Texture>("../res/fontAtlas.png", 8, 8);
+  m_ui_font_textures = std::make_unique<Texture>("./res/fontAtlas.png", 8, 8);
   m_ui_font_textures->load((SDL_Renderer *)m_sdl_renderer);
 }
 
@@ -67,4 +67,9 @@ void Renderer::draw_string_shadowed(int x, int y, std::string text, int color, i
 {
   draw_string(x + scale, y + scale, text, 0x000000, scale);
   draw_string(x, y, text, color, scale);
+}
+
+const SDL_Renderer *Renderer::get_sdl_renderer() const
+{
+  return m_sdl_renderer;
 }
