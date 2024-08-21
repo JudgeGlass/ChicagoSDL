@@ -173,8 +173,8 @@ std::string InputBuffer::get_text()
 
 void InputBuffer::check_focus()
 {
-  int mouse_x = WindowMgr::get_instance().m_mouse_x;
-  int mouse_y = WindowMgr::get_instance().m_mouse_y;
+  int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
+  int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
   if (WindowMgr::get_instance().m_mouse1_pressed &&
       Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width, m_height))
   {

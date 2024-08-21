@@ -45,11 +45,12 @@ void build_window()
   Label l(20, 100, "abcdefghijklmnopqrstuvwxyz", 0xFFFFFF);
   w.add_component(&l);
 
-  InputBuffer buff(260, 60, 25, 1);
+  InputBuffer buff(260, 60, 25, 12);
   w.add_component(&buff);
 
   Window w1(150, 50, 250, 150, "Dialog");
   w1.on_close([&]() { window_manager->remove_component(&w1); });
+  w1.enable_minimize_button();
   window_manager->add_component(&w1);
   Label dialog(8, 70, "This is a dialog example!", 0);
   w1.add_component(&dialog);
@@ -60,7 +61,7 @@ void build_window()
   Graphics g(20, 200, 200, 200);
   for (int i = 0; i < 60; i++)
   {
-    g.set_pixel(0, i, 0xFFFFFF);
+    g.set_pixel(i, i, 0xFFFFFF - i * sin(i));
   }
   w.add_component(&g);
 

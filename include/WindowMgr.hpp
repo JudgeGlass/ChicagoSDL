@@ -21,8 +21,6 @@ class WindowMgr : public Singleton<WindowMgr>
 
 public:
   bool m_mouse1_pressed{false};
-  int m_mouse_x{0};
-  int m_mouse_y{0};
   uint16_t m_window_width{800};
   uint16_t m_window_height{480};
 
@@ -47,6 +45,8 @@ public:
 
   std::string get_text_input();
 
+  std::pair<int, int> get_mouse_pos();
+
 private:
   std::string m_window_title;
   std::string m_text_input;
@@ -54,6 +54,9 @@ private:
   bool m_loop{false};
   bool m_show_border{false};
   bool m_char_removed{false};
+
+  int m_mouse_x{0};
+  int m_mouse_y{0};
 
   SDL_Window *m_sdl_window;
   SDL_Renderer *m_sdl_renderer;

@@ -15,6 +15,7 @@ public:
   Renderer(const SDL_Window *window, const SDL_Renderer *renderer);
 
   void render_color(const uint8_t r, const uint8_t g, const uint8_t b);
+  void render_color(int color);
   void render_rect(const int x, const int y, const int w, const int h, bool filled);
   void render_backdrop(const int x, const int y, const int w, const int h);
   void render_texture(const int index, const int x, const int y, const int scale, const int rowa);

@@ -23,6 +23,9 @@ public:
   void on_close(std::function<void()> event);
   void close();
 
+  void enable_minimize_button();
+  void disable_minimize_button();
+
 private:
   uint32_t m_width;
   uint32_t m_height;

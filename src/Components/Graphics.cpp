@@ -23,15 +23,15 @@ void Graphics::update() {}
 
 void Graphics::render()
 {
-  auto renderer = (SDL_Renderer *)WindowMgr::get_instance().get_renderer()->get_sdl_renderer();
-
-  SDL_Rect dst;
-  dst.x = m_x;
-  dst.y = m_y;
-  dst.w = m_width;
-  dst.h = m_height;
-
-  SDL_RenderCopy(renderer, m_bitmap_texture, NULL, &dst);
+  auto renderer = WindowMgr::get_instance().get_renderer();
+  for (int x = 0; x < m_width; x++)
+  {
+    for (int y = 0; y < m_height; y++)
+    {
+      renderer->render_color(m_bitmap[x + y * m_width]);
+      SDL_RenderDrawPoint((SDL_Renderer *)renderer->get_sdl_renderer(), x + m_x, y + m_y);
+    }
+  }
 }
 
 void Graphics::set_pixel(int x, int y, int color)
@@ -40,12 +40,6 @@ void Graphics::set_pixel(int x, int y, int color)
   {
     m_bitmap[x + y * m_width] = color;
   }
-
-  int texture_pitch = 0;
-  void *texture_pixels = NULL;
-  SDL_LockTexture(m_bitmap_texture, NULL, &texture_pixels, &texture_pitch);
-  memcpy(texture_pixels, m_bitmap, m_width * m_height);
-  SDL_UnlockTexture(m_bitmap_texture);
 }
 
 bool Graphics::is_enabled() const {}

@@ -84,7 +84,7 @@ void WindowMgr::sdl_event()
     {
       m_text_input = std::string(e.text.text);
     }
-    else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_BACKSPACE)
+    else if (e.type == SDL_KEYDOWN)
     {
       if (m_key_states.find(e.key.keysym.sym) != m_key_states.end())
       {
@@ -204,4 +204,9 @@ void WindowMgr::set_all_key_states(bool value)
   {
     state = value;
   }
+}
+
+std::pair<int, int> WindowMgr::get_mouse_pos()
+{
+  return std::make_pair(m_mouse_x, m_mouse_y);
 }

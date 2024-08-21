@@ -15,6 +15,15 @@ void Renderer::render_color(const uint8_t r, const uint8_t g, const uint8_t b)
   SDL_SetRenderDrawColor((SDL_Renderer *)m_sdl_renderer, r, g, b, 255);
 }
 
+void Renderer::render_color(int color)
+{
+  int r = (color & 0xFF0000) >> 16;
+  int g = (color & 0xFF00) >> 8;
+  int b = (color & 0xFF);
+
+  render_color(r, g, b);
+}
+
 void Renderer::render_backdrop(const int x, const int y, const int w, const int h)
 {
   SDL_SetRenderDrawBlendMode((SDL_Renderer *)m_sdl_renderer, SDL_BLENDMODE_BLEND);

@@ -36,8 +36,8 @@ void Button::update()
   push_handler();
   if (WindowMgr::get_instance().m_mouse1_pressed)
   {
-    if (Component::is_in_bounds(
-            WindowMgr::get_instance().m_mouse_x, WindowMgr::get_instance().m_mouse_y, m_x, m_y, m_width, m_height))
+    if (Component::is_in_bounds(WindowMgr::get_instance().get_mouse_pos().first,
+            WindowMgr::get_instance().get_mouse_pos().second, m_x, m_y, m_width, m_height))
     {
       m_pushed = true;
       m_push_time = 5;

@@ -70,8 +70,8 @@ void Window::update()
 
 void Window::move()
 {
-  int mouse_x = WindowMgr::get_instance().m_mouse_x;
-  int mouse_y = WindowMgr::get_instance().m_mouse_y;
+  int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
+  int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
   bool mouse_clicked = WindowMgr::get_instance().m_mouse1_pressed;
   if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
   {
@@ -111,4 +111,14 @@ void Window::close()
   {
     m_on_close();
   }
+}
+
+void Window::enable_minimize_button()
+{
+  m_minimize_btn->enable();
+}
+
+void Window::disable_minimize_button()
+{
+  m_minimize_btn->disable();
 }
