@@ -58,6 +58,8 @@ void build_window()
   ok.on_click([&]() { w1.close(); });
   w1.add_component(&ok);
 
+  Label l2(20, 190, "Graphics Buffer:", 0);
+  w.add_component(&l2);
   Graphics g(20, 200, 200, 200);
   for (int i = 0; i < 60; i++)
   {
