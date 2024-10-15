@@ -26,7 +26,7 @@ private:
 private:
   uint32_t m_width{16};
   uint32_t m_height{16};
-  uint8_t *m_bitmap;
+  uint32_t *m_bitmap;
 
   // void (*m_event_func)(){nullptr};
   std::function<void()> m_event_func;

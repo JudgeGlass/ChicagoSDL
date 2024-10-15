@@ -6,7 +6,7 @@ Graphics::Graphics(const uint32_t x, const uint32_t y, const uint32_t bitmap_wid
   m_x = x;
   m_y = y;
 
-  m_bitmap = new uint8_t[m_width * m_height];
+  m_bitmap = new uint32_t[m_width * m_height];
 
   m_bitmap_texture = SDL_CreateTexture((SDL_Renderer *)WindowMgr::get_instance().get_renderer()->get_sdl_renderer(),
       SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, m_width, m_height);
