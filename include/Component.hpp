@@ -15,6 +15,16 @@ public:
   virtual void render() {};
   virtual void update() {};
 
+  int get_x() const
+  {
+    return m_x;
+  }
+
+  int get_y() const
+  {
+    return m_y;
+  }
+
 protected:
   int m_x;
   int m_y;
