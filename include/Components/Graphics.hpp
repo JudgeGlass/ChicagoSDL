@@ -21,6 +21,8 @@ public:
   bool is_enabled() const;
 
   void on_click(std::function<void()> func);
+  void on_redraw(std::function<void()> func);
+  void on_update(std::function<void()> func);
 
 private:
 private:
@@ -30,6 +32,8 @@ private:
 
   // void (*m_event_func)(){nullptr};
   std::function<void()> m_event_func;
+  std::function<void()> m_on_redraw;
+  std::function<void()> m_on_update;
 
   SDL_Texture *m_bitmap_texture;
 };

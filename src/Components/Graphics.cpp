@@ -19,10 +19,21 @@ Graphics::~Graphics()
   delete[] m_bitmap;
 }
 
-void Graphics::update() {}
+void Graphics::update()
+{
+  if (m_on_update)
+  {
+    m_on_update();
+  }
+}
 
 void Graphics::render()
 {
+  if (m_on_redraw)
+  {
+    m_on_redraw();
+  }
+
   auto renderer = WindowMgr::get_instance().get_renderer();
   for (int x = 0; x < m_width; x++)
   {
@@ -52,4 +63,14 @@ void Graphics::clear_buffer()
   {
     m_bitmap[i] = 0;
   }
+}
+
+void Graphics::on_redraw(std::function<void()> func)
+{
+  m_on_redraw = func;
+}
+
+void Graphics::on_update(std::function<void()> func)
+{
+  m_on_update = func;
 }
