@@ -122,14 +122,3 @@ void Window::disable_minimize_button()
 {
   m_minimize_btn->disable();
 }
-
-std::pair<int, int> Window::get_mouse_pos() const
-{
-  int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
-  int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
-
-  mouse_x = (m_x - mouse_x);
-  mouse_y = (m_y - mouse_y);
-
-  return {mouse_x, mouse_y};
-}

@@ -26,8 +26,6 @@ public:
   void enable_minimize_button();
   void disable_minimize_button();
 
-  std::pair<int, int> get_mouse_pos() const;
-
 private:
   uint32_t m_width;
   uint32_t m_height;
