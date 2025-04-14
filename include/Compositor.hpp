@@ -19,6 +19,7 @@ public:
       const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::string &text);
   void draw_checkbox(const int &x, const int &y, bool is_checked, const std::string &text);
   void draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows);
+  void draw_progress_bar(const int &x, const int &y, const int &width, const int &height, float percentage);
 
 private:
 private:

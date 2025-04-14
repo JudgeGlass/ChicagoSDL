@@ -76,3 +76,19 @@ void Compositor::draw_input_buffer(const int &x, const int &y, const int &cols, 
   renderer->render_color(0x0, 0x0, 0x0);
   renderer->render_rect(x + 2, y + 1, width - 3, height - 2, false);
 }
+
+void draw_progress_bar(const int &x, const int &y, const int &width, const int &height, float percentage)
+{
+  Renderer *renderer = WindowMgr::get_instance().get_renderer();
+
+  renderer->render_color(0, 0, 0);
+  renderer->render_rect(x, y, width, height, true);
+  renderer->render_color(0xFF, 0xFF, 0xFF);
+  renderer->render_rect(x + 1, y + 1, width - 1, height - 1, true);
+  renderer->render_color(0x80, 0x80, 0x80);
+  renderer->render_rect(x + 1, y + 1, width - 2, height - 2, true);
+  renderer->render_color(0xC0, 0xC0, 0xC0);
+  renderer->render_rect(x + 2, y + 2, width - 3, height - 3, true);
+
+  // renderer->draw_string(x + (width / 2) - 8 * (text.size() / 2), y + 8, text, 0, 1);
+}

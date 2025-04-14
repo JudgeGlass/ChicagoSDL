@@ -3,6 +3,7 @@
 #include "Components/Graphics.hpp"
 #include "Components/InputBuffer.hpp"
 #include "Components/Label.hpp"
+#include "Components/ProgressBar.hpp"
 #include "Components/TextBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
@@ -28,6 +29,9 @@ void build_window()
   TextBox tb(30, 120, 20);
   tb.disable();
   w.add_component(&tb);
+
+  ProgressBar pb(30, 400, 100, 32);
+  w.add_component(&pb);
 
   Button b(60, 60, 50, 25, "EXIT");
   // clang-format off
