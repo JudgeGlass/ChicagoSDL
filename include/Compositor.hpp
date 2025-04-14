@@ -18,7 +18,7 @@ public:
   void draw_button_pushed(
       const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::string &text);
   void draw_checkbox(const int &x, const int &y, bool is_checked, const std::string &text);
-  void draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows, const char *buffer);
+  void draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows);
 
 private:
 private:

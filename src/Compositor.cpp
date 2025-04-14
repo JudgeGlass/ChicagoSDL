@@ -57,7 +57,7 @@ void Compositor::draw_checkbox(const int &x, const int &y, bool is_checked, cons
   renderer->draw_string(x + 20, y + 4, text, 0, 1);
 }
 
-void Compositor::draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows, const char *buffer)
+void Compositor::draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows)
 {
   Renderer *renderer = WindowMgr::get_instance().get_renderer();
 

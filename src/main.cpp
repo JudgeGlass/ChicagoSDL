@@ -3,6 +3,7 @@
 #include "Components/Graphics.hpp"
 #include "Components/InputBuffer.hpp"
 #include "Components/Label.hpp"
+#include "Components/TextBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
 #include <SDL2/SDL.h>
@@ -23,6 +24,10 @@ void build_window()
   CheckBox ch(30, 30, false, "Enable Buffer");
   ch.on_click([&]() { window_manager->toggle_border(); });
   w.add_component(&ch);
+
+  TextBox tb(30, 120, 20);
+  tb.disable();
+  w.add_component(&tb);
 
   Button b(60, 60, 50, 25, "EXIT");
   // clang-format off

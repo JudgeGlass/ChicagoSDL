@@ -35,9 +35,9 @@ void Graphics::render()
   }
 
   auto renderer = WindowMgr::get_instance().get_renderer();
-  for (int x = 0; x < m_width; x++)
+  for (int x = 0; x < (int)m_width; x++)
   {
-    for (int y = 0; y < m_height; y++)
+    for (int y = 0; y < (int)m_height; y++)
     {
       renderer->render_color(m_bitmap[x + y * m_width]);
       SDL_RenderDrawPoint((SDL_Renderer *)renderer->get_sdl_renderer(), x + m_x, y + m_y);
@@ -47,19 +47,22 @@ void Graphics::render()
 
 void Graphics::set_pixel(int x, int y, int color)
 {
-  if (x >= 0 && x < m_width && y >= 0 && y < m_height)
+  if (x >= 0 && x < (int)m_width && y >= 0 && y < (int)m_height)
   {
     m_bitmap[x + y * m_width] = color;
   }
 }
 
-bool Graphics::is_enabled() const {}
+bool Graphics::is_enabled() const
+{
+  return m_enabled;
+}
 
 void Graphics::on_click(std::function<void()> func) {}
 
 void Graphics::clear_buffer()
 {
-  for (int i = 0; i < m_width * m_height; i++)
+  for (int i = 0; i < (int)(m_width * m_height); i++)
   {
     m_bitmap[i] = 0;
   }

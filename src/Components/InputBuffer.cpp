@@ -92,7 +92,7 @@ void InputBuffer::render()
 
   // renderer->render_color(0xFF, 0xFF, 0xFF);
   // renderer->render_rect(m_x, m_y, m_width, m_height, true);
-  Compositor::get_instance().draw_input_buffer(m_x, m_y, m_cols, m_rows, buffer);
+  Compositor::get_instance().draw_input_buffer(m_x, m_y, m_cols, m_rows);
 
   for (int c = 0; c < m_cols; c++)
   {

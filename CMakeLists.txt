@@ -24,4 +24,5 @@ add_executable(ChicagoSDL
     src/Components/Label.cpp
     src/Components/InputBuffer.cpp
     src/Components/Graphics.cpp
+    src/Components/TextBox.cpp
 )
