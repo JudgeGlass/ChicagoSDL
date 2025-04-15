@@ -9,8 +9,23 @@
 #include "WindowMgr.hpp"
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <thread>
 
 #define SDL_MAIN_HANDLED
+
+float progress = 0.f;
+
+void do_work()
+{
+  while (true)
+  {
+    for (int i = 0; i < 100; i++)
+    {
+      progress = i / 100.f;
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+  }
+}
 
 void build_window()
 {
@@ -30,7 +45,8 @@ void build_window()
   tb.disable();
   w.add_component(&tb);
 
-  ProgressBar pb(30, 400, 100, 32);
+  ProgressBar pb(30, 440, 600, 32);
+  pb.set_callback_function([&]() { pb.step(progress); });
   w.add_component(&pb);
 
   Button b(60, 60, 50, 25, "EXIT");
@@ -76,6 +92,8 @@ void build_window()
   }
   w.add_component(&g);
 
+  std::thread work(do_work);
+  work.detach();
   WindowMgr::get_instance().loop();
 }
 

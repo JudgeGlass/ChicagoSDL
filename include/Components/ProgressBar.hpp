@@ -5,6 +5,9 @@
 #include "../Renderer.hpp"
 #include "Components/WindowComponent.hpp"
 
+#include <functional>
+#include <thread>
+
 class ProgressBar : public WindowComponent
 {
 public:
@@ -19,10 +22,14 @@ public:
 
   void step(float amount);
 
+  void set_callback_function(std::function<void()> funct);
+
 private:
-  float percentage;
+  float m_percentage;
   uint16_t m_width;
   uint16_t m_height;
+
+  std::function<void()> m_callback = nullptr;
 
 private:
 };

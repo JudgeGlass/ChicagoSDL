@@ -40,6 +40,7 @@ public:
   char pop_key_buffer();
   bool backspace_pressed();
   bool is_key_pressed(SDL_Keycode key);
+  bool is_running() const;
 
   Renderer *get_renderer();
 

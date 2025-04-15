@@ -77,7 +77,7 @@ void Compositor::draw_input_buffer(const int &x, const int &y, const int &cols, 
   renderer->render_rect(x + 2, y + 1, width - 3, height - 2, false);
 }
 
-void draw_progress_bar(const int &x, const int &y, const int &width, const int &height, float percentage)
+void Compositor::draw_progress_bar(int x, int y, int width, int height, float percentage)
 {
   Renderer *renderer = WindowMgr::get_instance().get_renderer();
 
@@ -90,5 +90,9 @@ void draw_progress_bar(const int &x, const int &y, const int &width, const int &
   renderer->render_color(0xC0, 0xC0, 0xC0);
   renderer->render_rect(x + 2, y + 2, width - 3, height - 3, true);
 
-  // renderer->draw_string(x + (width / 2) - 8 * (text.size() / 2), y + 8, text, 0, 1);
+  std::stringstream ss;
+  ss << (int)(percentage * 100) << "%";
+  renderer->render_color(0, 0x0C, 0x75);
+  renderer->render_rect(x + 2, y + 2, (width - 2) * percentage, height - 4, true);
+  renderer->draw_string(x + (width / 2) - 16, y + 12, ss.str(), 0xFFFFFF, 1);
 }

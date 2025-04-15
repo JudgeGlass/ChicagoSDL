@@ -210,3 +210,8 @@ std::pair<int, int> WindowMgr::get_mouse_pos()
 {
   return std::make_pair(m_mouse_x, m_mouse_y);
 }
+
+bool WindowMgr::is_running() const
+{
+  return m_loop;
+}

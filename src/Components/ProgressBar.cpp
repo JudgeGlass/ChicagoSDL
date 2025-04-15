@@ -10,18 +10,27 @@ ProgressBar::ProgressBar(int x, int y, uint16_t width, uint16_t height)
 }
 ProgressBar::~ProgressBar() {}
 
-void ProgressBar::update() {}
+void ProgressBar::update()
+{
+  if (m_callback)
+  {
+    m_callback();
+  }
+}
 
 void ProgressBar::render()
 {
-  int w = 100;
-  int h = 32;
-  int x = m_x;
-  int y = m_y;
-  float p = 0.0f;
-  Compositor::get_instance().draw_progress_bar(x, y, w, h, p);
+  Compositor::get_instance().draw_progress_bar(m_x, m_y, m_width, m_height, m_percentage);
 }
 
 float ProgressBar::get_percentage() const {}
 
-void ProgressBar::step(float amount) {}
+void ProgressBar::step(float amount)
+{
+  m_percentage = amount;
+}
+
+void ProgressBar::set_callback_function(std::function<void()> funct)
+{
+  m_callback = funct;
+}
