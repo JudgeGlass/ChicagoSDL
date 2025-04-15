@@ -80,6 +80,13 @@ void WindowMgr::sdl_event()
         m_mouse1_pressed = true;
       }
     }
+    // else if (e.type == SDL_MOUSEBUTTONUP)
+    // {
+    //   if (e.button.button == SDL_BUTTON_LEFT)
+    //   {
+    //     m_mouse1_pressed = false;
+    //   }
+    // }
     else if (e.type == SDL_TEXTINPUT)
     {
       m_text_input = std::string(e.text.text);
@@ -214,4 +221,9 @@ std::pair<int, int> WindowMgr::get_mouse_pos()
 bool WindowMgr::is_running() const
 {
   return m_loop;
+}
+
+SDL_Window *WindowMgr::get_sdl_window() const
+{
+  return m_sdl_window;
 }

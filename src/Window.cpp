@@ -73,6 +73,29 @@ void Window::move()
   int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
   int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
   bool mouse_clicked = WindowMgr::get_instance().m_mouse1_pressed;
+
+  if (m_main_window)
+  {
+    if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
+    {
+      m_window_grabbed = true;
+      m_clicked_x = mouse_x;
+      m_clicked_y = mouse_y;
+    }
+    else if (m_window_grabbed && !mouse_clicked)
+    {
+      SDL_Window *window = WindowMgr::get_instance().get_sdl_window();
+      int mouse_xx, mouse_yy;
+      SDL_GetGlobalMouseState(&mouse_xx, &mouse_yy);
+      SDL_SetWindowPosition(WindowMgr::get_instance().get_sdl_window(), mouse_xx - m_clicked_x, mouse_yy - m_clicked_y);
+    }
+    else if (m_window_grabbed && mouse_clicked)
+    {
+      m_window_grabbed = false;
+    }
+    return;
+  }
+
   if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
   {
     m_window_grabbed = true;
@@ -98,7 +121,7 @@ void Window::move()
       comp->set_position(x + dx, y + dy);
     }
   }
-  else if (m_window_grabbed)
+  else if (m_window_grabbed && !m_main_window)
   {
     m_window_prev_x = mouse_x - (m_width / 2);
     m_window_prev_y = mouse_y;
@@ -121,4 +144,14 @@ void Window::enable_minimize_button()
 void Window::disable_minimize_button()
 {
   m_minimize_btn->disable();
+}
+
+void Window::set_main_window()
+{
+  m_main_window = true;
+}
+
+bool Window::is_main_window() const
+{
+  return m_main_window;
 }

@@ -35,6 +35,7 @@ void build_window()
   Window w(0, 0, 800 * 2, 480 * 2, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
   window_manager->add_component(&w);
 
+  w.set_main_window();
   w.on_close([&]() { window_manager->close(); });
 
   CheckBox ch(30, 30, false, "Enable Buffer");
@@ -45,9 +46,12 @@ void build_window()
   tb.disable();
   w.add_component(&tb);
 
-  ProgressBar pb(30, 440, 600, 32);
+  ProgressBar pb(30, 440, 1200, 32);
   pb.set_callback_function([&]() { pb.step(progress); });
   w.add_component(&pb);
+  ProgressBar pb2(30, 480, 1200, 32);
+  pb2.set_callback_function([&]() { pb2.step(progress); });
+  w.add_component(&pb2);
 
   Button b(60, 60, 50, 25, "EXIT");
   // clang-format off

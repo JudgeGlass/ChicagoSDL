@@ -25,6 +25,9 @@ public:
 
   void enable_minimize_button();
   void disable_minimize_button();
+  void set_main_window();
+
+  bool is_main_window() const;
 
 private:
   uint32_t m_width;
@@ -41,6 +44,11 @@ private:
   bool m_window_grabbed{false};
   int m_window_prev_x{0};
   int m_window_prev_y{0};
+
+  bool m_main_window{false};
+
+  int m_clicked_x{0};
+  int m_clicked_y{0};
 
 private:
   void move();

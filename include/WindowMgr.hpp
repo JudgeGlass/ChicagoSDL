@@ -43,6 +43,7 @@ public:
   bool is_running() const;
 
   Renderer *get_renderer();
+  SDL_Window *get_sdl_window() const;
 
   std::string get_text_input();
 
