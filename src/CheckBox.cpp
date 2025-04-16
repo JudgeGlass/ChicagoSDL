@@ -1,4 +1,4 @@
-#include "Components/CheckBox.hpp"
+#include "CheckBox.hpp"
 
 CheckBox::CheckBox(const uint32_t x, const uint32_t y, const bool checked, const std::string &label)
     : m_is_checked(checked), m_label(label)

@@ -1,7 +1,7 @@
 #ifndef LABEL_HPP
 #define LABEL_HPP
 
-#include "Components/WindowComponent.hpp"
+#include "WindowComponent.hpp"
 
 class Label : public WindowComponent
 {

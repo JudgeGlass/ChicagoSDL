@@ -25,9 +25,20 @@ public:
     return m_y;
   }
 
+  void hide()
+  {
+    m_is_hidden = true;
+  }
+
+  void show()
+  {
+    m_is_hidden = false;
+  }
+
 protected:
   int m_x;
   int m_y;
+  bool m_is_hidden{false};
 
 private:
 private:

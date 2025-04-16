@@ -1,4 +1,4 @@
-#include "Components/Label.hpp"
+#include "Label.hpp"
 
 Label::Label(const uint32_t x, const uint32_t y, const std::string &label, const uint32_t color)
     : m_label(label), m_color(color)

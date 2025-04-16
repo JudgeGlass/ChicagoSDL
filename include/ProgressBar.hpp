@@ -1,9 +1,9 @@
 #ifndef PROGRESSBAR_HPP
 #define PROGRESSBAR_HPP
 
-#include "../Compositor.hpp"
-#include "../Renderer.hpp"
-#include "Components/WindowComponent.hpp"
+#include "Compositor.hpp"
+#include "Renderer.hpp"
+#include "WindowComponent.hpp"
 
 #include <functional>
 #include <thread>

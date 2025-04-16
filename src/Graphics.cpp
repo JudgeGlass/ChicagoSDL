@@ -1,4 +1,4 @@
-#include "Components/Graphics.hpp"
+#include "Graphics.hpp"
 
 Graphics::Graphics(const uint32_t x, const uint32_t y, const uint32_t bitmap_width, const uint32_t bitmap_height)
     : m_width(bitmap_width), m_height(bitmap_height)
@@ -57,8 +57,6 @@ bool Graphics::is_enabled() const
 {
   return m_enabled;
 }
-
-void Graphics::on_click(std::function<void()> func) {}
 
 void Graphics::clear_buffer()
 {

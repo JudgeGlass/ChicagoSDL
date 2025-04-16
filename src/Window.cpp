@@ -1,17 +1,37 @@
 #include "Window.hpp"
 
-Window::Window(
-    const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height, const std::string &title)
+Window::Window(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height,
+    const std::string &title, const bool is_main_window)
     : m_width(width), m_height(height), m_title(title)
 {
   m_x = x;
   m_y = y;
+  m_main_window = is_main_window;
 
   m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "");
   m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
-  m_minimize_btn->disable();
+  // m_minimize_btn->disable();
+  if (WindowMgr::get_instance().get_minimize_bar().has_value() && !m_main_window)
+  {
+    std::cout << "(ChicagoSDL) Linking window to minimize bar..." << std::endl;
+    MinimizeBar *mb = (MinimizeBar *)WindowMgr::get_instance().get_minimize_bar().value();
+    mb->link_window(this);
+  }
 
-  WindowMgr::get_instance().set_focus(this);
+  m_animation_sx = 0;
+  m_animation_sy = height;
+
+  // WindowMgr::get_instance().set_focus(this);
+}
+
+Window::~Window()
+{
+  if (WindowMgr::get_instance().get_minimize_bar().has_value() && !m_main_window)
+  {
+    std::cout << "(ChicagoSDL) unlinking window to minimize bar..." << std::endl;
+    MinimizeBar *mb = (MinimizeBar *)WindowMgr::get_instance().get_minimize_bar().value();
+    mb->remove_window(this);
+  }
 }
 
 void Window::add_component(WindowComponent *component)
@@ -28,10 +48,21 @@ void Window::on_close(std::function<void()> event)
   m_exit_btn->on_click(m_on_close);
 }
 
+void Window::on_minimize(std::function<void()> event)
+{
+  m_on_minimize = event;
+  m_minimize_btn->on_click(m_on_minimize);
+}
+
 void Window::render()
 {
+  if (m_is_hidden)
+  {
+    return;
+  }
   Renderer *renderer = WindowMgr::get_instance().get_renderer();
-  renderer->render_backdrop(0, 0, WindowMgr::get_instance().m_window_width, WindowMgr::get_instance().m_window_height);
+  // renderer->render_backdrop(0, 0, WindowMgr::get_instance().m_window_width,
+  // WindowMgr::get_instance().m_window_height);
 
   Compositor::get_instance().draw_window_frame(m_x, m_y, m_width, m_height);
 
@@ -84,7 +115,6 @@ void Window::move()
     }
     else if (m_window_grabbed && !mouse_clicked)
     {
-      SDL_Window *window = WindowMgr::get_instance().get_sdl_window();
       int mouse_xx, mouse_yy;
       SDL_GetGlobalMouseState(&mouse_xx, &mouse_yy);
       SDL_SetWindowPosition(WindowMgr::get_instance().get_sdl_window(), mouse_xx - m_clicked_x, mouse_yy - m_clicked_y);

@@ -56,7 +56,7 @@ void Renderer::draw_string(int x, int y, std::string text, int color, int scale)
   SDL_SetTextureColorMod(m_ui_font_textures->texture, r, g, b);
 
   // std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-  for (int i = 0; i < text.length(); i++)
+  for (int i = 0; i < (int)text.length(); i++)
   {
     int index = font_chars.find((char)text[i]);
     if (index >= 0)

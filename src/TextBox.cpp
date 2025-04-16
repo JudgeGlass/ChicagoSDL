@@ -1,4 +1,4 @@
-#include "Components/TextBox.hpp"
+#include "TextBox.hpp"
 
 TextBox::TextBox(int x, int y, uint16_t cols) : m_cols(cols)
 {
@@ -23,8 +23,8 @@ void TextBox::update()
   }
   std::string key = WindowMgr::get_instance().get_text_input();
   bool backspace = WindowMgr::get_instance().backspace_pressed();
-  bool left = WindowMgr::get_instance().is_key_pressed(SDLK_LEFT);
-  bool right = WindowMgr::get_instance().is_key_pressed(SDLK_RIGHT);
+  // bool left = WindowMgr::get_instance().is_key_pressed(SDLK_LEFT);
+  // bool right = WindowMgr::get_instance().is_key_pressed(SDLK_RIGHT);
   if (!key.empty())
   {
     m_text.append(key);
@@ -53,7 +53,6 @@ void TextBox::update()
       m_cursor_pos--;
     }
   }
-  std::cout << "m_start: " << m_start_index << "\tm_end: " << m_end_index << "\tE:" << m_enabled << std::endl;
 }
 void TextBox::render()
 {

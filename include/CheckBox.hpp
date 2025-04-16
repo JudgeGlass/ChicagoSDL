@@ -1,7 +1,7 @@
 #ifndef CHECKBOX_HPP
 #define CHECKBOX_HPP
 
-#include "../Compositor.hpp"
+#include "Compositor.hpp"
 #include "WindowComponent.hpp"
 #include <functional>
 

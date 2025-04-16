@@ -24,6 +24,12 @@ public:
   void draw_input_buffer(const int &x, const int &y, const int &cols, const int &rows);
   void draw_progress_bar(int x, int y, int width, int height, float percentage);
 
+  // TODO: Add dropdown menu
+  //   void draw_dropdown_normal(
+  //       const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::string &defualt_text);
+  //   void draw_dropdown_pushed(const int &x, const int &y, const uint32_t &width, const uint32_t &height,
+  //       const std::vector<std::string> &strings);
+
 private:
 private:
 };

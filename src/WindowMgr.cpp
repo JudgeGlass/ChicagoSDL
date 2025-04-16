@@ -80,13 +80,6 @@ void WindowMgr::sdl_event()
         m_mouse1_pressed = true;
       }
     }
-    // else if (e.type == SDL_MOUSEBUTTONUP)
-    // {
-    //   if (e.button.button == SDL_BUTTON_LEFT)
-    //   {
-    //     m_mouse1_pressed = false;
-    //   }
-    // }
     else if (e.type == SDL_TEXTINPUT)
     {
       m_text_input = std::string(e.text.text);
@@ -106,10 +99,21 @@ void WindowMgr::update()
   SDL_GetMouseState(&m_mouse_x, &m_mouse_y);
   for (const auto &comp : m_components)
   {
-    if (comp == m_current_focus.top())
+    if (m_current_focus.size() > 0)
+    {
+      if (comp == m_current_focus.top())
+      {
+        comp->update();
+      }
+    }
+    else
     {
       comp->update();
     }
+  }
+  if (m_minimize_bar != nullptr)
+  {
+    m_minimize_bar->update();
   }
 }
 
@@ -120,6 +124,11 @@ void WindowMgr::render()
   for (const auto &comp : m_components)
   {
     comp->render();
+  }
+
+  if (m_minimize_bar != nullptr)
+  {
+    m_minimize_bar->render();
   }
   SDL_RenderPresent(m_sdl_renderer);
 }
@@ -136,9 +145,12 @@ void WindowMgr::add_component(Component *component)
 
 void WindowMgr::remove_component(Component *component)
 {
-  if (m_current_focus.top() == component)
+  if (m_current_focus.size() > 0)
   {
-    m_current_focus.pop();
+    if (m_current_focus.top() == component)
+    {
+      m_current_focus.pop();
+    }
   }
   m_components.erase(std::remove(m_components.begin(), m_components.end(), component), m_components.end());
 }
@@ -226,4 +238,19 @@ bool WindowMgr::is_running() const
 SDL_Window *WindowMgr::get_sdl_window() const
 {
   return m_sdl_window;
+}
+
+void WindowMgr::add_minimize_bar(Component *mbar)
+{
+  m_minimize_bar = mbar;
+}
+
+std::optional<Component *> WindowMgr::get_minimize_bar() const
+{
+  if (m_minimize_bar != nullptr)
+  {
+    return m_minimize_bar;
+  }
+
+  return {};
 }

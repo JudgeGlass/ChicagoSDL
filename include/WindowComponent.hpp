@@ -1,7 +1,7 @@
 #ifndef WINDOWCOMPONENT_HPP
 #define WINDOWCOMPONENT_HPP
 
-#include "../Component.hpp"
+#include "Component.hpp"
 
 class WindowComponent : public Component
 {
@@ -24,8 +24,6 @@ public:
   {
     return m_is_primary;
   }
-
-  virtual void add_event(void *func) {}
 
   virtual void enable()
   {

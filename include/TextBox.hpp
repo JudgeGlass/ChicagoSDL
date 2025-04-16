@@ -1,9 +1,9 @@
 #ifndef TEXTBOX_HPP
 #define TEXTBOX_HPP
 
-#include "../Compositor.hpp"
-#include "../Renderer.hpp"
-#include "Components/WindowComponent.hpp"
+#include "Compositor.hpp"
+#include "Renderer.hpp"
+#include "WindowComponent.hpp"
 
 class TextBox : public WindowComponent
 {

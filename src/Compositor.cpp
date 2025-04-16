@@ -96,3 +96,17 @@ void Compositor::draw_progress_bar(int x, int y, int width, int height, float pe
   renderer->render_rect(x + 2, y + 2, (width - 2) * percentage, height - 4, true);
   renderer->draw_string(x + (width / 2) - 16, y + 12, ss.str(), 0xFFFFFF, 1);
 }
+
+// TODO: Add dropdown menu
+// void Compositor::draw_dropdown_normal(
+//     const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::string &defualt_text)
+// {
+//   //Renderer *renderer = WindowMgr::get_instance().get_renderer();
+// }
+
+// void Compositor::draw_dropdown_pushed(
+//     const int &x, const int &y, const uint32_t &width, const uint32_t &height, const std::vector<std::string>
+//     &strings)
+// {
+//   //Renderer *renderer = WindowMgr::get_instance().get_renderer();
+// }

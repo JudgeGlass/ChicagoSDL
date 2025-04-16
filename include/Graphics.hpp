@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_HPP
 #define GRAPHICS_HPP
 
-#include "../Compositor.hpp"
+#include "Compositor.hpp"
 #include "WindowComponent.hpp"
 #include "functional"
 
@@ -20,7 +20,6 @@ public:
 
   bool is_enabled() const;
 
-  void on_click(std::function<void()> func);
   void on_redraw(std::function<void()> func);
   void on_update(std::function<void()> func);
 

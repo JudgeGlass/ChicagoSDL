@@ -1,10 +1,11 @@
-#include "Components/Button.hpp"
-#include "Components/CheckBox.hpp"
-#include "Components/Graphics.hpp"
-#include "Components/InputBuffer.hpp"
-#include "Components/Label.hpp"
-#include "Components/ProgressBar.hpp"
-#include "Components/TextBox.hpp"
+#include "Button.hpp"
+#include "CheckBox.hpp"
+#include "Graphics.hpp"
+#include "InputBuffer.hpp"
+#include "Label.hpp"
+#include "MinimizeBar.hpp"
+#include "ProgressBar.hpp"
+#include "TextBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
 #include <SDL2/SDL.h>
@@ -32,10 +33,13 @@ void build_window()
   WindowMgr *window_manager = &WindowMgr::get_instance();
   WindowMgr::get_instance().init(800 * 2, 480 * 2, "ChicagoSDL");
 
-  Window w(0, 0, 800 * 2, 480 * 2, "ChicagoSDL Test - Copyright (c) Hunter Wilcox");
-  window_manager->add_component(&w);
+  MinimizeBar mb;
+  window_manager->add_minimize_bar(&mb);
 
-  w.set_main_window();
+  Window w(0, 0, 800 * 2, 480 * 2, "ChicagoSDL Test - Copyright (c) Hunter Wilcox", true);
+  window_manager->add_component(&w);
+  w.on_minimize([]() { SDL_MinimizeWindow(WindowMgr::get_instance().get_sdl_window()); });
+
   w.on_close([&]() { window_manager->close(); });
 
   CheckBox ch(30, 30, false, "Enable Buffer");
@@ -43,7 +47,7 @@ void build_window()
   w.add_component(&ch);
 
   TextBox tb(30, 120, 20);
-  tb.disable();
+  // tb.disable();
   w.add_component(&tb);
 
   ProgressBar pb(30, 440, 1200, 32);
@@ -79,6 +83,7 @@ void build_window()
 
   Window w1(150, 50, 250, 150, "Dialog");
   w1.on_close([&]() { window_manager->remove_component(&w1); });
+  w1.on_minimize([&]() { w1.hide(); });
   w1.enable_minimize_button();
   window_manager->add_component(&w1);
   Label dialog(8, 70, "This is a dialog example!", 0);
@@ -90,9 +95,14 @@ void build_window()
   Label l2(20, 190, "Graphics Buffer:", 0);
   w.add_component(&l2);
   Graphics g(20, 200, 200, 200);
-  for (int i = 0; i < 60; i++)
+  for (int i = 0; i < 200; i++)
   {
-    g.set_pixel(i, i, 0xFFFFFF - i * sin(i));
+    g.set_pixel(i, 30, 0xFFFFFF);
+    g.set_pixel(i, 31, 0xFFFFFF);
+    g.set_pixel(i, 32, 0xFFFFFF);
+    g.set_pixel(i, 33, 0xFFFFFF);
+    g.set_pixel(i, 34, 0xFFFFFF);
+    g.set_pixel(i, sin(4 * i) * 20, 0x00FF00);
   }
   w.add_component(&g);
 

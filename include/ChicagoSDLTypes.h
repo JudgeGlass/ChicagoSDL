@@ -20,11 +20,11 @@
 #include "Window.hpp"
 #include "WindowMgr.hpp"
 
-#include "Components/Button.hpp"
-#include "Components/CheckBox.hpp"
-#include "Components/InputBuffer.hpp"
-#include "Components/Label.hpp"
-#include "Components/WindowComponent.hpp"
+#include "Button.hpp"
+#include "CheckBox.hpp"
+#include "InputBuffer.hpp"
+#include "Label.hpp"
+#include "WindowComponent.hpp"
 
 class Compositor;
 class Renderer;

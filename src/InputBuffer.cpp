@@ -1,4 +1,4 @@
-#include "Components/InputBuffer.hpp"
+#include "InputBuffer.hpp"
 
 InputBuffer::InputBuffer(int x, int y, uint16_t cols, uint16_t rows) : m_cols(cols), m_rows(rows)
 {

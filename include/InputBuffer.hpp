@@ -1,9 +1,9 @@
 #ifndef INPUTBUFFER_HPP
 #define INPUTBUFFER_HPP
 
-#include "../Compositor.hpp"
-#include "../Renderer.hpp"
-#include "Components/WindowComponent.hpp"
+#include "Compositor.hpp"
+#include "Renderer.hpp"
+#include "WindowComponent.hpp"
 #include <sstream>
 
 class InputBuffer : public WindowComponent

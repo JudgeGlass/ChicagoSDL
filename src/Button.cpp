@@ -1,4 +1,4 @@
-#include "Components/Button.hpp"
+#include "Button.hpp"
 
 Button::Button(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height, const std::string &text)
     : m_width(width), m_height(height), m_text(text)

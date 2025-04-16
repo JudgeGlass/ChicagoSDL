@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <optional>
 #include <stack>
 #include <string>
 #include <vector>
@@ -33,6 +34,7 @@ public:
   void close();
   void add_component(Component *component);
   void remove_component(Component *component);
+  void add_minimize_bar(Component *mbar);
   void set_focus(Component *component);
   void toggle_border();
   void set_all_key_states(bool value);
@@ -48,6 +50,8 @@ public:
   std::string get_text_input();
 
   std::pair<int, int> get_mouse_pos();
+
+  std::optional<Component *> get_minimize_bar() const;
 
 private:
   std::string m_window_title;
@@ -71,6 +75,8 @@ private:
   std::stack<Component *> m_current_focus;
 
   std::map<SDL_Keycode, bool> m_key_states;
+
+  Component *m_minimize_bar{nullptr};
 
 private:
   void sdl_init();
