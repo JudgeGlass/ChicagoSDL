@@ -4,7 +4,7 @@ CFLAGS := -Wall -Wextra
 
 # Libs
 LIB := -lSDL2main -lSDL2 -lSDL2_image
-INCLUDE := -Iinclude 
+INCLUDE := include 
 
 # Directories
 SRC_DIR := src
@@ -23,6 +23,10 @@ TARGET := $(BIN_DIR)/main
 # Default target
 all: $(TARGET)
 
+format: $(SRCS) 
+	@clang-format -i $^
+	@find include/ -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i
+
 # Linking
 $(TARGET): $(OBJS)
 	@mkdir -p $(BIN_DIR)
@@ -32,7 +36,7 @@ $(TARGET): $(OBJS)
 # Compilation rule
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
-	@$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+	@$(CXX) $(CFLAGS) -c $< -o $@ -I$(INCLUDE)
 	@echo "CXX " $<
 
 # Clean
