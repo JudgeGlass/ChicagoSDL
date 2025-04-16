@@ -25,7 +25,7 @@ all: $(TARGET)
 
 format: $(SRCS) 
 	@clang-format -i $^
-	@find include/ -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i
+	@find include/ -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
 
 # Linking
 $(TARGET): $(OBJS)
