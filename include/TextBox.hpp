@@ -15,6 +15,7 @@ public:
   void update() override;
   void render() override;
 
+  void set_text(std::string text);
   std::string get_text() const;
 
 private:

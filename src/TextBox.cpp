@@ -96,3 +96,8 @@ std::string TextBox::get_text() const
 {
   return m_text;
 }
+
+void TextBox::set_text(std::string text)
+{
+  m_text = text;
+}
