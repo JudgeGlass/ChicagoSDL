@@ -171,6 +171,8 @@ void WindowMgr::close()
 
 void WindowMgr::toggle_border()
 {
+  m_show_border = !m_show_border;
+
   if (m_show_border)
   {
     SDL_SetWindowBordered(m_sdl_window, SDL_TRUE);
@@ -179,8 +181,6 @@ void WindowMgr::toggle_border()
   {
     SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
   }
-
-  m_show_border = !m_show_border;
 }
 
 void WindowMgr::set_focus(Component *component)
