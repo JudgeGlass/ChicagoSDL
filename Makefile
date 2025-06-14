@@ -24,6 +24,11 @@ TARGET := $(BIN_DIR)/main
 # Default target
 all: $(TARGET)
 
+docker-build:
+	docker-compose build
+	docker-compose up
+	docker-compose down
+
 format: $(SRCS) 
 	@clang-format -i $^
 	@find include/ -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i

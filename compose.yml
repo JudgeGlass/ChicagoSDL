@@ -1,0 +1,5 @@
+services:
+  chicagosdl:
+    build: .
+    volumes:
+      - ./:/code
