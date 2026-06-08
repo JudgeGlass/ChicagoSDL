@@ -22,6 +22,7 @@ class WindowMgr : public Singleton<WindowMgr>
 
 public:
   bool m_mouse1_pressed{false};
+  bool m_mouse1_held{false};
   uint16_t m_window_width{800};
   uint16_t m_window_height{480};
 

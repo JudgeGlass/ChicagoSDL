@@ -104,6 +104,7 @@ void Window::move()
   int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
   int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
   bool mouse_clicked = WindowMgr::get_instance().m_mouse1_pressed;
+  bool mouse_held = WindowMgr::get_instance().m_mouse1_held;
 
   if (m_main_window)
   {
@@ -113,7 +114,7 @@ void Window::move()
       m_clicked_x = mouse_x;
       m_clicked_y = mouse_y;
     }
-    else if (m_window_grabbed && !mouse_clicked)
+    else if (mouse_held)
     {
       int mouse_xx, mouse_yy;
       SDL_GetGlobalMouseState(&mouse_xx, &mouse_yy);

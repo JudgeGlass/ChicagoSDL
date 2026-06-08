@@ -78,6 +78,14 @@ void WindowMgr::sdl_event()
       if (e.button.button == SDL_BUTTON_LEFT)
       {
         m_mouse1_pressed = true;
+        m_mouse1_held = true;
+      }
+    }
+    else if (e.type == SDL_MOUSEBUTTONUP)
+    {
+      if (e.button.button == SDL_BUTTON_LEFT)
+      {
+        m_mouse1_held = false;
       }
     }
     else if (e.type == SDL_TEXTINPUT)

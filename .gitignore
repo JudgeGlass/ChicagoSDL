@@ -2,3 +2,8 @@
 build/
 obj/
 bin/
+*.o
+*.obj
+*.so
+*.a
+main
