@@ -91,6 +91,7 @@ void build_window()
   Button ok(250 - 5 - 70, 150 - 30, 70, 25, "OK");
   ok.on_click([&]() { w1.close(); });
   w1.add_component(&ok);
+  window_manager->set_focus(&w1);
 
   Label l2(20, 190, "Graphics Buffer:", 0);
   w.add_component(&l2);
