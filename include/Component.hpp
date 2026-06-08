@@ -25,6 +25,16 @@ public:
     return m_y;
   }
 
+  int get_width() const
+  {
+    return m_width;
+  }
+
+  int get_height() const
+  {
+    return m_height;
+  }
+
   void hide()
   {
     m_is_hidden = true;
@@ -38,6 +48,8 @@ public:
 protected:
   int m_x;
   int m_y;
+  uint32_t m_width;
+  uint32_t m_height;
   bool m_is_hidden{false};
 
 private:

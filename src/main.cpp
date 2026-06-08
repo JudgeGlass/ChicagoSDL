@@ -8,6 +8,7 @@
 #include "TextBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
+#include "ScrollArea.hpp"
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <thread>
@@ -106,6 +107,14 @@ void build_window()
     g.set_pixel(i, sin(4 * i) * 20, 0x00FF00);
   }
   w.add_component(&g);
+
+  ScrollArea sa(300, 200, 200, 50);
+  for (int i = 0; i < 20; i++)
+  {
+    Label *l = new Label(0, i * 20, "Scroll Area Item: " + std::to_string(i), 0);
+    sa.add_component(l);
+  }
+  w.add_component(&sa);
 
   std::thread work(do_work);
   work.detach();

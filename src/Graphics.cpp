@@ -1,10 +1,11 @@
 #include "Graphics.hpp"
 
 Graphics::Graphics(const uint32_t x, const uint32_t y, const uint32_t bitmap_width, const uint32_t bitmap_height)
-    : m_width(bitmap_width), m_height(bitmap_height)
 {
   m_x = x;
   m_y = y;
+  m_width = bitmap_width;
+  m_height = bitmap_height;
 
   m_bitmap = new uint32_t[m_width * m_height];
 
