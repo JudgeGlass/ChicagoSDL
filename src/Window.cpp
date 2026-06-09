@@ -9,7 +9,8 @@ Window::Window(const uint32_t x, const uint32_t y, const uint32_t width, const u
   m_main_window = is_main_window;
 
   m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "");
-  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
+  m_maximize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 14, m_y + 8, 16, 16, "");
+  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 16 - 16 - 14 - 12, m_y + 8, 16, 16, "");
   // m_minimize_btn->disable();
   if (WindowMgr::get_instance().get_minimize_bar().has_value() && !m_main_window)
   {
@@ -54,6 +55,12 @@ void Window::on_minimize(std::function<void()> event)
   m_minimize_btn->on_click(m_on_minimize);
 }
 
+void Window::on_maximize(std::function<void()> event)
+{
+  m_on_maximize = event;
+  m_maximize_btn->on_click(m_on_maximize);
+}
+
 void Window::render()
 {
   if (m_is_hidden)
@@ -73,6 +80,8 @@ void Window::render()
 
   m_minimize_btn->render();
   renderer->render_texture(2, m_minimize_btn->get_x(), m_minimize_btn->get_y(), 1, 16);
+  m_maximize_btn->render();
+  renderer->render_texture(1, m_maximize_btn->get_x(), m_maximize_btn->get_y(), 1, 16);
 
   for (const auto &comp : m_ui_components)
   {
@@ -92,6 +101,7 @@ void Window::update()
 
   m_exit_btn->update();
   m_minimize_btn->update();
+  m_maximize_btn->update();
 
   for (const auto &comp : m_ui_components)
   {
@@ -147,6 +157,7 @@ void Window::move()
 
     m_exit_btn->set_position(m_exit_btn->get_x() + dx, m_exit_btn->get_y() + dy);
     m_minimize_btn->set_position(m_minimize_btn->get_x() + dx, m_minimize_btn->get_y() + dy);
+    m_maximize_btn->set_position(m_maximize_btn->get_x() + dx, m_maximize_btn->get_y() + dy);
 
     for (const auto &comp : m_ui_components)
     {

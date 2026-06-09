@@ -42,6 +42,18 @@ void build_window()
   w.on_minimize([]() { SDL_MinimizeWindow(WindowMgr::get_instance().get_sdl_window()); });
 
   w.on_close([&]() { window_manager->close(); });
+  w.on_maximize([&]() { 
+    SDL_Window *sdl_window = WindowMgr::get_instance().get_sdl_window();
+    Uint32 flags = SDL_GetWindowFlags(sdl_window);
+    if (flags & SDL_WINDOW_MAXIMIZED)
+    {
+      SDL_RestoreWindow(sdl_window);
+    }
+    else
+    {
+      SDL_MaximizeWindow(sdl_window);
+    }
+   });
 
   CheckBox ch(30, 30, false, "Enable Buffer");
   ch.on_click([&]() { window_manager->toggle_border(); });

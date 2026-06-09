@@ -24,6 +24,7 @@ public:
   void add_component(WindowComponent *component);
   void on_close(std::function<void()> event);
   void on_minimize(std::function<void()> event);
+  void on_maximize(std::function<void()> event);
   void close();
 
   void enable_minimize_button();
@@ -44,11 +45,13 @@ private:
 
   std::unique_ptr<Button> m_exit_btn;
   std::unique_ptr<Button> m_minimize_btn;
+  std::unique_ptr<Button> m_maximize_btn;
 
   std::vector<WindowComponent *> m_ui_components;
 
   std::function<void()> m_on_close;
   std::function<void()> m_on_minimize;
+  std::function<void()> m_on_maximize;
 
   bool m_window_grabbed{false};
   int m_window_prev_x{0};

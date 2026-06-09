@@ -39,6 +39,7 @@ void WindowMgr::sdl_init()
   }
 
   SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
+  SDL_SetWindowResizable(m_sdl_window, SDL_TRUE);
   SDL_StartTextInput();
   // SDL_SetWindowFullscreen(m_sdl_window, SDL_WINDOW_FULLSCREEN);
 
