@@ -23,10 +23,14 @@ private:
 
   uint16_t m_texture_width{0};
   uint16_t m_texture_height{0};
+  uint16_t m_scroll_offset{0};
 
   SDL_Texture *m_texture{nullptr};
 
   std::vector<WindowComponent *> m_ui_components;
+
+  uint32_t get_largest_component_distance_y();
+  uint32_t get_largest_component_distance_x();
 
 private:
 

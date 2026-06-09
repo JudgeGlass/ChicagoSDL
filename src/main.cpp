@@ -108,7 +108,7 @@ void build_window()
   }
   w.add_component(&g);
 
-  ScrollArea sa(300, 200, 200, 50);
+  ScrollArea sa(300, 200, 200, 150);
   for (int i = 0; i < 20; i++)
   {
     Label *l = new Label(0, i * 20, "Scroll Area Item: " + std::to_string(i), 0);
