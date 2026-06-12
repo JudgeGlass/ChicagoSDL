@@ -1,10 +1,10 @@
 # Compiler and flags
-CXX := g++
+CXX := g++ -std=c++17
 CFLAGS := -Wall -Wextra
 
 # Libs
-LIB := -lSDL2main -lSDL2 -lSDL2_image
-INCLUDE := include 
+LIB := -L/opt/homebrew/lib -lSDL2 -lSDL2main -lSDL2_image
+INCLUDE := include -I/opt/homebrew/include/
 
 # Directories
 SRC_DIR := src
