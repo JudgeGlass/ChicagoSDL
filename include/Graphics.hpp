@@ -25,8 +25,6 @@ public:
 
 private:
 private:
-  uint32_t m_width{16};
-  uint32_t m_height{16};
   uint32_t *m_bitmap;
 
   // void (*m_event_func)(){nullptr};

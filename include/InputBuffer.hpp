@@ -23,8 +23,6 @@ private:
   uint16_t m_rows{1};
   uint16_t m_current_col{0};
   uint16_t m_current_row{0};
-  uint16_t m_width{0};
-  uint16_t m_height{0};
 
   char *buffer{nullptr};
 

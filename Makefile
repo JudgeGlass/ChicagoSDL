@@ -25,9 +25,9 @@ TARGET := $(BIN_DIR)/main
 all: $(TARGET)
 
 docker-build:
-	docker-compose build
-	docker-compose up
-	docker-compose down
+	docker compose build
+	docker compose up
+	docker compose down
 
 format: $(SRCS) 
 	@clang-format -i $^

@@ -9,7 +9,8 @@ Window::Window(const uint32_t x, const uint32_t y, const uint32_t width, const u
   m_main_window = is_main_window;
 
   m_exit_btn = std::make_unique<Button>((m_x + m_width) - 8 - 16, m_y + 8, 16, 16, "");
-  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 16, m_y + 8, 16, 16, "");
+  m_maximize_btn = std::make_unique<Button>((m_x + m_width) - 12 - 16 - 14, m_y + 8, 16, 16, "");
+  m_minimize_btn = std::make_unique<Button>((m_x + m_width) - 16 - 16 - 14 - 12, m_y + 8, 16, 16, "");
   // m_minimize_btn->disable();
   if (WindowMgr::get_instance().get_minimize_bar().has_value() && !m_main_window)
   {
@@ -54,6 +55,12 @@ void Window::on_minimize(std::function<void()> event)
   m_minimize_btn->on_click(m_on_minimize);
 }
 
+void Window::on_maximize(std::function<void()> event)
+{
+  m_on_maximize = event;
+  m_maximize_btn->on_click(m_on_maximize);
+}
+
 void Window::render()
 {
   if (m_is_hidden)
@@ -61,8 +68,8 @@ void Window::render()
     return;
   }
   Renderer *renderer = WindowMgr::get_instance().get_renderer();
-  // renderer->render_backdrop(0, 0, WindowMgr::get_instance().m_window_width,
-  // WindowMgr::get_instance().m_window_height);
+  renderer->render_backdrop(0, 0, WindowMgr::get_instance().m_window_width,
+  WindowMgr::get_instance().m_window_height);
 
   Compositor::get_instance().draw_window_frame(m_x, m_y, m_width, m_height);
 
@@ -73,6 +80,8 @@ void Window::render()
 
   m_minimize_btn->render();
   renderer->render_texture(2, m_minimize_btn->get_x(), m_minimize_btn->get_y(), 1, 16);
+  m_maximize_btn->render();
+  renderer->render_texture(1, m_maximize_btn->get_x(), m_maximize_btn->get_y(), 1, 16);
 
   for (const auto &comp : m_ui_components)
   {
@@ -92,6 +101,7 @@ void Window::update()
 
   m_exit_btn->update();
   m_minimize_btn->update();
+  m_maximize_btn->update();
 
   for (const auto &comp : m_ui_components)
   {
@@ -104,35 +114,40 @@ void Window::move()
   int mouse_x = WindowMgr::get_instance().get_mouse_pos().first;
   int mouse_y = WindowMgr::get_instance().get_mouse_pos().second;
   bool mouse_clicked = WindowMgr::get_instance().m_mouse1_pressed;
+  bool mouse_held = WindowMgr::get_instance().m_mouse1_held;
 
   if (m_main_window)
   {
     if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
     {
+      std::cout << "Main window grabbed" << std::endl;
       m_window_grabbed = true;
       m_clicked_x = mouse_x;
       m_clicked_y = mouse_y;
     }
-    else if (m_window_grabbed && !mouse_clicked)
+    else if (mouse_held && m_window_grabbed)
     {
       int mouse_xx, mouse_yy;
       SDL_GetGlobalMouseState(&mouse_xx, &mouse_yy);
       SDL_SetWindowPosition(WindowMgr::get_instance().get_sdl_window(), mouse_xx - m_clicked_x, mouse_yy - m_clicked_y);
     }
-    else if (m_window_grabbed && mouse_clicked)
+    else if (m_window_grabbed && !mouse_held)
     {
       m_window_grabbed = false;
     }
     return;
   }
 
-  if (mouse_clicked && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
+  
+
+  if (mouse_held && !m_window_grabbed && Component::is_in_bounds(mouse_x, mouse_y, m_x, m_y, m_width - 48, 26))
   {
     m_window_grabbed = true;
   }
-  else if (mouse_clicked && m_window_grabbed)
+  else if (mouse_held && m_window_grabbed)
   {
-    m_window_grabbed = false;
+    m_window_prev_x = mouse_x - (m_width / 2);
+    m_window_prev_y = mouse_y;
     int old_mx = m_x;
     int old_my = m_y;
     m_x = m_window_prev_x;
@@ -142,6 +157,7 @@ void Window::move()
 
     m_exit_btn->set_position(m_exit_btn->get_x() + dx, m_exit_btn->get_y() + dy);
     m_minimize_btn->set_position(m_minimize_btn->get_x() + dx, m_minimize_btn->get_y() + dy);
+    m_maximize_btn->set_position(m_maximize_btn->get_x() + dx, m_maximize_btn->get_y() + dy);
 
     for (const auto &comp : m_ui_components)
     {
@@ -151,10 +167,9 @@ void Window::move()
       comp->set_position(x + dx, y + dy);
     }
   }
-  else if (m_window_grabbed && !m_main_window)
+  else if(m_window_grabbed && !mouse_held)
   {
-    m_window_prev_x = mouse_x - (m_width / 2);
-    m_window_prev_y = mouse_y;
+    m_window_grabbed = false;
   }
 }
 

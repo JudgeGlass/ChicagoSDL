@@ -5,6 +5,9 @@ Label::Label(const uint32_t x, const uint32_t y, const std::string &label, const
 {
   m_x = x;
   m_y = y;
+
+  m_width = label.length() * 8;
+  m_height = 8;
 }
 
 void Label::render()

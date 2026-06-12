@@ -8,6 +8,7 @@
 #include "TextBox.hpp"
 #include "Window.hpp"
 #include "WindowMgr.hpp"
+#include "ScrollArea.hpp"
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <thread>
@@ -41,6 +42,18 @@ void build_window()
   w.on_minimize([]() { SDL_MinimizeWindow(WindowMgr::get_instance().get_sdl_window()); });
 
   w.on_close([&]() { window_manager->close(); });
+  w.on_maximize([&]() { 
+    SDL_Window *sdl_window = WindowMgr::get_instance().get_sdl_window();
+    Uint32 flags = SDL_GetWindowFlags(sdl_window);
+    if (flags & SDL_WINDOW_MAXIMIZED)
+    {
+      SDL_RestoreWindow(sdl_window);
+    }
+    else
+    {
+      SDL_MaximizeWindow(sdl_window);
+    }
+   });
 
   CheckBox ch(30, 30, false, "Enable Buffer");
   ch.on_click([&]() { window_manager->toggle_border(); });
@@ -91,6 +104,7 @@ void build_window()
   Button ok(250 - 5 - 70, 150 - 30, 70, 25, "OK");
   ok.on_click([&]() { w1.close(); });
   w1.add_component(&ok);
+  window_manager->set_focus(&w1);
 
   Label l2(20, 190, "Graphics Buffer:", 0);
   w.add_component(&l2);
@@ -105,6 +119,14 @@ void build_window()
     g.set_pixel(i, sin(4 * i) * 20, 0x00FF00);
   }
   w.add_component(&g);
+
+  ScrollArea sa(300, 200, 200, 150);
+  for (int i = 0; i < 20; i++)
+  {
+    Label *l = new Label(0, i * 20, "Scroll Area Item: " + std::to_string(i), 0);
+    sa.add_component(l);
+  }
+  w.add_component(&sa);
 
   std::thread work(do_work);
   work.detach();

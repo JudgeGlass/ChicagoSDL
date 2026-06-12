@@ -39,6 +39,7 @@ void WindowMgr::sdl_init()
   }
 
   SDL_SetWindowBordered(m_sdl_window, SDL_FALSE);
+  SDL_SetWindowResizable(m_sdl_window, SDL_TRUE);
   SDL_StartTextInput();
   // SDL_SetWindowFullscreen(m_sdl_window, SDL_WINDOW_FULLSCREEN);
 
@@ -78,6 +79,14 @@ void WindowMgr::sdl_event()
       if (e.button.button == SDL_BUTTON_LEFT)
       {
         m_mouse1_pressed = true;
+        m_mouse1_held = true;
+      }
+    }
+    else if (e.type == SDL_MOUSEBUTTONUP)
+    {
+      if (e.button.button == SDL_BUTTON_LEFT)
+      {
+        m_mouse1_held = false;
       }
     }
     else if (e.type == SDL_TEXTINPUT)
